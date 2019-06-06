@@ -25,6 +25,7 @@ private:
 
 	void initPencil();
 	void initLine();
+	void initCircle();
 
 private:
 
@@ -40,6 +41,7 @@ private:
 	Mode _mode;
 
 	std::list<ThickLine> _lines;
+	std::list<sf::CircleShape> _circles;
 };
 
 
