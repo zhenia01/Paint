@@ -4,45 +4,44 @@
 #include <functional>
 #include <list>
 
-enum class Status {
-	None,
-	Moving,
-	Dragging
-};
+namespace Tool {
 
-enum class Mode {
-	None,
-	Rectangle,
-	Circle,
-	Triangle,
-	Line,
-	Erase,
-	Pencil
-};
+	enum class Status {
+		None,
+		Moving,
+		Dragging
+	};
 
-class Tool {
+	enum class Mode {
+		None,
+		Rectangle,
+		Circle,
+		Triangle,
+		Line,
+		Erase,
+		Pencil
+	};
 
-public:	
-	using VoidFunc = std::function<void()>;
-	using EventFunc = std::function<void(const sf::Event&)>;
-	
-public:
-	Tool() : _mode(Mode::None), status(Status::None) {};
-	Tool(Mode mode) : _mode(mode), status(Status::None) {};
-	virtual ~Tool() {};
+	class Tool {
 
-	EventFunc onPress;
-	EventFunc onRelease;
-	EventFunc onDrag;
-	EventFunc onMove;
+	public:
+		using VoidFunc = std::function<void()>;
+		using EventFunc = std::function<void(const sf::Event&)>;
 
+	public:
+		Tool() : mode(Mode::None), status(Status::None), onNothing([this]() {status = Status::None; }) {};
+		Tool(Mode mode) : mode(mode), status(Status::None), onNothing([this]() {status = Status::None; }) {};
+		virtual ~Tool() {};
 
-	void setStatus(Status s) { status = s; }
-	Status status;
+	public:
+		EventFunc onPress;
+		EventFunc onRelease;
+		EventFunc onDrag;
+		EventFunc onMove;
 
-	sf::Vector2f last;
-	
-protected:
-	Mode _mode;
-	
-};
+		VoidFunc onNothing;
+
+		Status status;
+		Mode mode;
+	};
+}

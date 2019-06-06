@@ -19,6 +19,12 @@
     <Filter Include="Header Files\gui">
       <UniqueIdentifier>{6fbbd763-2300-4abd-8fd8-6a57c7207091}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\tools">
+      <UniqueIdentifier>{878adc9a-4ab9-4452-b0fd-68e5d23d6219}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tools">
+      <UniqueIdentifier>{afc823cd-416f-43bb-bc5a-bf628ce6db0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -51,8 +57,8 @@
     <ClCompile Include="Canvas.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
-    <ClCompile Include="Pencil.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Tools.cpp">
+      <Filter>Source Files\tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,11 +95,26 @@
     <ClInclude Include="Canvas.h">
       <Filter>Header Files\gui</Filter>
     </ClInclude>
+    <ClInclude Include="Line.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
     <ClInclude Include="Pencil.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\tools</Filter>
     </ClInclude>
     <ClInclude Include="Tool.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Erase.h">
+      <Filter>Header Files\tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

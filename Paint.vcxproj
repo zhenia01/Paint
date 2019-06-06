@@ -171,18 +171,22 @@
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Paint.cpp" />
-    <ClCompile Include="Pencil.cpp" />
     <ClCompile Include="SpriteButton.cpp" />
     <ClCompile Include="TextButton.cpp" />
     <ClCompile Include="ThickLine.cpp" />
+    <ClCompile Include="Tools.cpp" />
     <ClCompile Include="Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Canvas.h" />
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="Erase.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="Line.h" />
     <ClInclude Include="Paint.h" />
+    <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Tool.h" />
     <ClInclude Include="Pencil.h" />
     <ClInclude Include="Resources.h" />
@@ -190,6 +194,7 @@
     <ClInclude Include="Test.h" />
     <ClInclude Include="TextButton.h" />
     <ClInclude Include="ThickLine.h" />
+    <ClInclude Include="Tools.h" />
     <ClInclude Include="Widget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

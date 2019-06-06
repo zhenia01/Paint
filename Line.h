@@ -1,13 +1,14 @@
 #pragma once
+
 #include "Tool.h"
 #include "ThickLine.h"
 
 namespace Tool {
-	class Pencil :
+	class Line :
 		public Tool {
 	public:
-		Pencil() : Tool(Mode::Pencil), thickness(2.f), color(sf::Color::Black) {};
-		virtual ~Pencil() {};
+		Line() : Tool(Mode::Line), thickness(2.f) {};
+		virtual ~Line() {};
 
 	public:
 		sf::Vector2f last;
@@ -15,5 +16,4 @@ namespace Tool {
 		sf::Color color;
 		ThickLine line;
 	};
-
 }

@@ -8,7 +8,7 @@
 
 Paint::Paint() :
 	_window{ sf::VideoMode{ 1200, 800 }, "Paint", sf::Style::Close | sf::Style::Titlebar },
-	_canvas({ 105, 160 }, { 1090, 630 }) {
+	_canvas({ 105, 160 }, { 1090, 630 }, _window) {
 	try {
 		_fontManager.load(Fonts::ID::Arial, "Assets/arial.ttf");
 
@@ -47,32 +47,32 @@ void Paint::initTools() {
 
 	_tools[0]->setTexture(_textureManager.get(Textures::ID::Circle));
 	_tools[0]->setCallBack([this]() {
-		_canvas.setMode(Mode::Circle);
+		_canvas.setMode(Tool::Mode::Circle);
 		});
 
 	_tools[1]->setTexture(_textureManager.get(Textures::ID::Erase));
 	_tools[1]->setCallBack([this]() {
-		_canvas.setMode(Mode::Erase);
+		_canvas.setMode(Tool::Mode::Erase);
 		});
 
 	_tools[2]->setTexture(_textureManager.get(Textures::ID::Line));
 	_tools[2]->setCallBack([this]() {
-		_canvas.setMode(Mode::Line);
+		_canvas.setMode(Tool::Mode::Line);
 		});
 	
 	_tools[3]->setTexture(_textureManager.get(Textures::ID::Pencil));
 	_tools[3]->setCallBack([this]() {
-		_canvas.setMode(Mode::Pencil);
+		_canvas.setMode(Tool::Mode::Pencil);
 		});
 
 	_tools[4]->setTexture(_textureManager.get(Textures::ID::Rectangle));
 	_tools[4]->setCallBack([this]() {
-		_canvas.setMode(Mode::Rectangle);
+		_canvas.setMode(Tool::Mode::Rectangle);
 	});
 
 	_tools[5]->setTexture(_textureManager.get(Textures::ID::Triangle));
 	_tools[5]->setCallBack([this]() {
-		_canvas.setMode(Mode::Triangle);
+		_canvas.setMode(Tool::Mode::Triangle);
 	});
 
 	_tools[6]->setTexture(_textureManager.get(Textures::ID::Save));
