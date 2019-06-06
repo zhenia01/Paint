@@ -45,10 +45,13 @@
     <ClCompile Include="SpriteButton.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
-    <ClCompile Include="Canvas.cpp">
+    <ClCompile Include="ThickLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ThickLine.cpp">
+    <ClCompile Include="Canvas.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Pencil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,10 +83,16 @@
     <ClInclude Include="SpriteButton.h">
       <Filter>Header Files\gui</Filter>
     </ClInclude>
-    <ClInclude Include="Canvas.h">
+    <ClInclude Include="ThickLine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThickLine.h">
+    <ClInclude Include="Canvas.h">
+      <Filter>Header Files\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Pencil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

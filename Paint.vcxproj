@@ -171,6 +171,7 @@
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Paint.cpp" />
+    <ClCompile Include="Pencil.cpp" />
     <ClCompile Include="SpriteButton.cpp" />
     <ClCompile Include="TextButton.cpp" />
     <ClCompile Include="ThickLine.cpp" />
@@ -182,6 +183,8 @@
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="Paint.h" />
+    <ClInclude Include="Tool.h" />
+    <ClInclude Include="Pencil.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="SpriteButton.h" />
     <ClInclude Include="Test.h" />

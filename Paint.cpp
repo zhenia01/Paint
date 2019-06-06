@@ -47,42 +47,48 @@ void Paint::initTools() {
 
 	_tools[0]->setTexture(_textureManager.get(Textures::ID::Circle));
 	_tools[0]->setCallBack([this]() {
-		_canvas.state.mode = Canvas::PaintState::Mode::Circle; });
+		_canvas.setMode(Mode::Circle);
+		});
 
 	_tools[1]->setTexture(_textureManager.get(Textures::ID::Erase));
 	_tools[1]->setCallBack([this]() {
-		_canvas.state.mode = Canvas::PaintState::Mode::Erase; });
+		_canvas.setMode(Mode::Erase);
+		});
 
 	_tools[2]->setTexture(_textureManager.get(Textures::ID::Line));
 	_tools[2]->setCallBack([this]() {
-		_canvas.state.mode = Canvas::PaintState::Mode::Line; });
-
+		_canvas.setMode(Mode::Line);
+		});
+	
 	_tools[3]->setTexture(_textureManager.get(Textures::ID::Pencil));
 	_tools[3]->setCallBack([this]() {
-		_canvas.state.mode = Canvas::PaintState::Mode::Pencil; });
+		_canvas.setMode(Mode::Pencil);
+		});
 
 	_tools[4]->setTexture(_textureManager.get(Textures::ID::Rectangle));
 	_tools[4]->setCallBack([this]() {
-		_canvas.state.mode = Canvas::PaintState::Mode::Rectangle; });
+		_canvas.setMode(Mode::Rectangle);
+	});
 
 	_tools[5]->setTexture(_textureManager.get(Textures::ID::Triangle));
 	_tools[5]->setCallBack([this]() {
-		_canvas.state.mode = Canvas::PaintState::Mode::Triangle; });
+		_canvas.setMode(Mode::Triangle);
+	});
 
 	_tools[6]->setTexture(_textureManager.get(Textures::ID::Save));
 	_tools[6]->setCallBack([this]() {});
 
 	_tools[7]->setTexture(_textureManager.get(Textures::ID::Thickness_small));
 	_tools[7]->setCallBack([this]() {
-		_canvas.state.thickness = 2.f; });
+		_canvas.setThickness(2.f); });
 
 	_tools[8]->setTexture(_textureManager.get(Textures::ID::Thickness_medium));
 	_tools[8]->setCallBack([this]() {
-		_canvas.state.thickness = 4.f; });
+		_canvas.setThickness(4.f); });
 
 	_tools[9]->setTexture(_textureManager.get(Textures::ID::Thickness_big));
 	_tools[9]->setCallBack([this]() {
-		_canvas.state.thickness = 8.f; });
+		_canvas.setThickness(8.f); });
 }
 
 void Paint::initColors() {
@@ -100,7 +106,7 @@ void Paint::initColors() {
 
 	for (auto& i : _colors) {
 		i->setCallBack([this, &i]() {
-			_canvas.state.color = i->getFillColor();
+			_canvas.setColor(i->getFillColor());
 			_currentColor.setFillColor(i->getFillColor());
 			});
 	}
