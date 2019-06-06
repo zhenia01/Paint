@@ -26,6 +26,8 @@ private:
 	void initPencil();
 	void initLine();
 	void initCircle();
+	void initRectangle();
+	void initErase();
 
 private:
 
@@ -42,6 +44,7 @@ private:
 
 	std::list<ThickLine> _lines;
 	std::list<sf::CircleShape> _circles;
+	std::list<sf::RectangleShape> _rectangles;
 };
 
 
