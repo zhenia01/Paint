@@ -8,7 +8,7 @@
 
 Paint::Paint() :
 	_window{ sf::VideoMode{ 1200, 800 }, "Paint", sf::Style::Close | sf::Style::Titlebar },
-	_canvas({ 105, 160 }, { 1090, 630 }, _window) {
+	_canvas({ 105, 160 }, { 1093, 638 }) {
 	try {
 		_fontManager.load(Fonts::ID::Arial, "Assets/arial.ttf");
 

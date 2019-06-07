@@ -9,7 +9,7 @@
 class Canvas : public sf::Drawable, public sf::Transformable, public sf::NonCopyable {
 
 public:
-	Canvas(const sf::Vector2f& pos, const sf::Vector2f& size, sf::RenderWindow& window);
+	Canvas(const sf::Vector2f& pos, const sf::Vector2f& size);
 
 	bool handleEvent(const sf::Event& event);
 

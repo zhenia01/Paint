@@ -9,11 +9,16 @@
 namespace Tool {
 	class Tools {
 	public:
-		Tools(sf::RenderWindow& target);
+		Tools();
 		Tool operator[](Mode mode) const;
 
+		void draw(sf::RenderTarget&, sf::RenderStates) const;
+
+		void setThickness(const float thickness);
+		void setColor(const sf::Color& color);
+
 	private:
-		void initPencil();
+		//void initPencil();
 		//void initLine();
 		//void initCircle();
 		//void initRectangle();
@@ -25,9 +30,6 @@ namespace Tool {
 		Circle _circle;
 		Rectangle _rect;
 		Erase _erase;
-
-	public:
-		sf::RenderWindow& _target;
 	};
 
 }

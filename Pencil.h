@@ -6,14 +6,22 @@ namespace Tool {
 	class Pencil :
 		public Tool {
 	public:
-		Pencil() : Tool(Mode::Pencil), thickness(2.f), color(sf::Color::Black) {};
-		virtual ~Pencil() {};
+
+		Pencil();
+
+		virtual ~Pencil();
+
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+		std::list<ThickLine>& getLines() const;
 
 	public:
 		sf::Vector2f last;
 		float thickness;
 		sf::Color color;
-		ThickLine line;
+	
+	private:
+		static std::list<ThickLine> _lines;
 	};
 
 }

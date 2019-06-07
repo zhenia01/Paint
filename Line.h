@@ -7,13 +7,18 @@ namespace Tool {
 	class Line :
 		public Tool {
 	public:
-		Line() : Tool(Mode::Line), thickness(2.f) {};
+		Line();
 		virtual ~Line() {};
+
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	public:
 		sf::Vector2f last;
 		float thickness;
 		sf::Color color;
 		ThickLine line;
+
+	private:
+		std::list<ThickLine> _lines;
 	};
 }

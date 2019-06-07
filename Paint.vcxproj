@@ -167,10 +167,15 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="Erase.cpp" />
     <ClCompile Include="GUI.h" />
     <ClCompile Include="Label.cpp" />
+    <ClCompile Include="Line.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Paint.cpp" />
+    <ClCompile Include="Pencil.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="SpriteButton.cpp" />
     <ClCompile Include="TextButton.cpp" />
     <ClCompile Include="ThickLine.cpp" />

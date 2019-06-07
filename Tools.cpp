@@ -1,31 +1,7 @@
 #include "Tools.h"
 
-void Tool::Tools::initPencil() {
-	_pencil.onPress = [&](const sf::Event & event) mutable {
-		_pencil.status = Status::Dragging;
-		_pencil.last = { static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y) };
-	};
-
-	_pencil.onRelease = [&](const sf::Event&) mutable {
-		_pencil.status = Status::None;
-	};
-
-	_pencil.onDrag = [&, target = &_target](const sf::Event & event) mutable {
-
-		sf::Vector2f newLast{ static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y) };
-
-		ThickLine line(_pencil.last, newLast, _pencil.thickness, _pencil.color);
-
-		target->draw(line);
-
-		_pencil.last = newLast;
-	};
-
-	_pencil.onMove = [](const sf::Event&) {};
-}
-
-Tool::Tools::Tools(sf::RenderWindow& target) : _target(target) {
-	initPencil();
+Tool::Tools::Tools() : _erase(_pencil.getLines()) {
+	
 }
 
 Tool::Tool Tool::Tools::operator[](Mode mode) const {
@@ -55,4 +31,28 @@ Tool::Tool Tool::Tools::operator[](Mode mode) const {
 		return Tool();
 		break;
 	}
+}
+
+void Tool::Tools::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+	_pencil.draw(target, states);
+	_rect.draw(target, states);
+	_line.draw(target, states);
+	_circle.draw(target, states);
+	_erase.draw(target, states);
+}
+
+void Tool::Tools::setThickness(const float thickness) {
+	_pencil.thickness = thickness;
+	_line.thickness = thickness;
+	_circle.thickness = thickness;
+	_erase.thickness = thickness;
+	_rect.thickness = thickness;
+}
+
+void Tool::Tools::setColor(const sf::Color& color) {
+	_pencil.color = color;
+	_line.color = color;
+	_circle.color = color;
+	_erase.color = color;
+	_rect.color = color;
 }

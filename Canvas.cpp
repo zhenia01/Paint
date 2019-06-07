@@ -5,8 +5,8 @@
 #include "Canvas.h"
 #include <iostream>
 
-Canvas::Canvas(const sf::Vector2f& position, const sf::Vector2f& size, sf::RenderWindowt& window) :
-	_size(size), _position(position), _thickness(2.f), _mode(Tool::Mode::Pencil), _tools(window) {
+Canvas::Canvas(const sf::Vector2f& position, const sf::Vector2f& size) :
+	_size(size), _position(position), _thickness(2.f), _mode(Tool::Mode::Pencil) {
 
 	_shape.setSize(size);
 	_shape.setPosition(position);
@@ -50,10 +50,12 @@ sf::Vector2f Canvas::getSize() const {
 
 void Canvas::setColor(const sf::Color& color) {
 	_color = color;
+	_tools.setColor(color);
 }
 
 void Canvas::setThickness(const float thickness) {
 	_thickness = thickness;
+	_tools.setThickness(thickness);
 }
 
 void Canvas::setMode(Tool::Mode mode) {
@@ -62,6 +64,7 @@ void Canvas::setMode(Tool::Mode mode) {
 
 void Canvas::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	target.draw(_shape, states);
+	_tools.draw(target, states);
 }
 //
 //void Canvas::initDrawMap() {
