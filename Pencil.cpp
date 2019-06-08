@@ -1,8 +1,6 @@
 #include "Pencil.h"
 
-std::list<ThickLine> Tool::Pencil::_lines;
-
-Tool::Pencil::Pencil() : Tool(Mode::Pencil), thickness(2.f), color(sf::Color::Black) {
+Tool::Pencil::Pencil(std::list<std::unique_ptr<sf::Drawable>>& list) : BaseTool(Mode::Pencil), thickness(2.f), color(sf::Color::Black), _lines(list) {
 	onPress = [&](const sf::Event & event) mutable {
 		status = Status::Dragging;
 
@@ -19,7 +17,7 @@ Tool::Pencil::Pencil() : Tool(Mode::Pencil), thickness(2.f), color(sf::Color::Bl
 
 		ThickLine line(last, newLast, thickness, color);
 
-		_lines.push_back(line);
+		_lines.push_back(std::unique_ptr<sf::Drawable>(new ThickLine(last, newLast, thickness, color)));
 
 		last = newLast;
 	};
@@ -28,14 +26,4 @@ Tool::Pencil::Pencil() : Tool(Mode::Pencil), thickness(2.f), color(sf::Color::Bl
 }
 
 Tool::Pencil::~Pencil() {
-}
-
-void Tool::Pencil::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	for (auto i : _lines) {
-		target.draw(i, states);
-	}
-}
-
-std::list<ThickLine>& Tool::Pencil::getLines() const {
-	return _lines;
 }

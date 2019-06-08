@@ -1,15 +1,13 @@
 #pragma once
 
-#include "Tool.h"
+#include "BaseTool.h"
 
 namespace Tool {
 	class Circle:
-		public Tool{
+		public BaseTool{
 	public:
-		Circle();
+		Circle(std::list<std::unique_ptr<sf::Drawable>>& list);
 		virtual ~Circle();
-
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	public:
 		sf::Vector2f point;
@@ -18,6 +16,8 @@ namespace Tool {
 		sf::CircleShape circle;
 
 	private:
-		std::list<sf::CircleShape> _circles;
+		//std::unique_ptr<sf::CircleShape> _current;
+		sf::CircleShape _current;
+		std::list<std::unique_ptr<sf::Drawable>>& _circles;
 	};
 }

@@ -45,14 +45,8 @@
     <ClCompile Include="TextButton.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
-    <ClCompile Include="GUI.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteButton.cpp">
       <Filter>Source Files\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="ThickLine.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Canvas.cpp">
       <Filter>Source Files\gui</Filter>
@@ -75,6 +69,15 @@
     <ClCompile Include="Erase.cpp">
       <Filter>Source Files\tools</Filter>
     </ClCompile>
+    <ClCompile Include="Save.cpp">
+      <Filter>Source Files\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.h">
+      <Filter>Header Files\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThickLine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Paint.h">
@@ -90,9 +93,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Resources.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextButton.h">
@@ -116,9 +116,6 @@
     <ClInclude Include="Pencil.h">
       <Filter>Header Files\tools</Filter>
     </ClInclude>
-    <ClInclude Include="Tool.h">
-      <Filter>Header Files\tools</Filter>
-    </ClInclude>
     <ClInclude Include="Tools.h">
       <Filter>Header Files\tools</Filter>
     </ClInclude>
@@ -129,6 +126,12 @@
       <Filter>Header Files\tools</Filter>
     </ClInclude>
     <ClInclude Include="Erase.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Save.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseTool.h">
       <Filter>Header Files\tools</Filter>
     </ClInclude>
   </ItemGroup>

@@ -19,19 +19,21 @@ namespace Tool {
 		Triangle,
 		Line,
 		Erase,
-		Pencil
+		Pencil,
+
+		Save
 	};
 
-	class Tool {
+	class BaseTool {
 
 	public:
 		using VoidFunc = std::function<void()>;
 		using EventFunc = std::function<void(const sf::Event&)>;
 
 	public:
-		Tool() : mode(Mode::None), status(Status::None), onNothing([this]() {status = Status::None; }) {};
-		Tool(Mode mode) : mode(mode), status(Status::None), onNothing([this]() {status = Status::None; }) {};
-		virtual ~Tool() {};
+		BaseTool() : mode(Mode::None), status(Status::None), onNothing([this]() {status = Status::None; }) {};
+		BaseTool(Mode mode) : mode(mode), status(Status::None), onNothing([this]() {status = Status::None; }) {};
+		virtual ~BaseTool() {};
 
 	public:
 		EventFunc onPress;

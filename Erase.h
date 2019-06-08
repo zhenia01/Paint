@@ -1,16 +1,14 @@
 #pragma once
 
-#include "Tool.h"
+#include "BaseTool.h"
 #include "ThickLine.h"
 
 namespace Tool {
 	class Erase :
-		public Tool {
+		public BaseTool {
 	public:
-		Erase(std::list<ThickLine>& list);
+		Erase(std::list<std::unique_ptr<sf::Drawable>>& list);
 		virtual ~Erase();
-
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	public:
 		sf::Vector2f point;
@@ -20,7 +18,6 @@ namespace Tool {
 
 	private:
 		sf::RectangleShape _eraser;
-		std::list<ThickLine>& _lines;
-		bool isActive;
+		std::list<std::unique_ptr<sf::Drawable>>& _lines;
 	};
 }

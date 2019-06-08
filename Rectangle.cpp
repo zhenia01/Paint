@@ -1,20 +1,19 @@
 #include "Rectangle.h"
 
-Tool::Rectangle::Rectangle() : Tool(Mode::Rectangle), thickness(2.f), color(sf::Color::Black) {
+Tool::Rectangle::Rectangle(std::list<std::unique_ptr<sf::Drawable>>& list) : BaseTool(Mode::Rectangle), thickness(2.f), color(sf::Color::Black), _rects(list) {
 
 	onPress = [&](const sf::Event & event) mutable {
 		if (point.x < 0.1f && point.y < 0.1f) {
 			status = Status::Moving;
 			point = { static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y) };
 
-			sf::RectangleShape rectangle;
-			rectangle.setPosition(point);
-			rectangle.setSize({ 0.f, 0.f });
-			rectangle.setOutlineColor(color);
-			rectangle.setOutlineThickness(thickness);
-			rectangle.setFillColor(sf::Color::Transparent);
+			_rect.setPosition(point);
+			_rect.setSize({ 0.f, 0.f });
+			_rect.setOutlineColor(color);
+			_rect.setOutlineThickness(thickness);
+			_rect.setFillColor(sf::Color::Transparent);
 
-			_rects.push_back(rectangle);
+			_rects.push_back(std::unique_ptr<sf::Drawable>(new sf::RectangleShape(_rect)));
 		} else {
 			status = Status::None;
 		}
@@ -33,22 +32,14 @@ Tool::Rectangle::Rectangle() : Tool(Mode::Rectangle), thickness(2.f), color(sf::
 	onMove = [&](const sf::Event & event) mutable {
 		if ((point.x > 0.1f && point.y > 0.1f) && !_rects.empty()) {
 
-			auto& lastRect = _rects.back();
-
-			auto rectangleBounds = lastRect.getGlobalBounds();
-
 			sf::Vector2f newLast{ static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y) };
-			auto diff = newLast - lastRect.getPosition();
-			lastRect.setSize(diff);
+			auto diff = newLast - _rect.getPosition();
+			_rect.setSize(diff);
+
+			_rects.back() = std::unique_ptr<sf::Drawable>(new sf::RectangleShape(_rect));
 		}
 	};
 }
 
 Tool::Rectangle::~Rectangle() {
-}
-
-void Tool::Rectangle::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	for (auto i : _rects) {
-		target.draw(i, states);
-	}
 }

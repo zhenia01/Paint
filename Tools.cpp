@@ -1,13 +1,13 @@
 #include "Tools.h"
 
-Tool::Tools::Tools() : _erase(_pencil.getLines()) {
+Tool::Tools::Tools() : _pencil(_draw), _circle(_draw), _line(_draw), _rect(_draw), _erase(_draw){
 	
 }
 
-Tool::Tool Tool::Tools::operator[](Mode mode) const {
+Tool::BaseTool Tool::Tools::operator[](Mode mode) const {
 	switch (mode) {
 	case Mode::None:
-		return Tool();
+		return BaseTool();
 		break;
 	case Mode::Rectangle:
 		return _rect;
@@ -16,7 +16,7 @@ Tool::Tool Tool::Tools::operator[](Mode mode) const {
 		return _circle;
 		break;
 	case Mode::Triangle:
-		return Tool();
+		return BaseTool();
 		break;
 	case Mode::Line:
 		return _line;
@@ -27,18 +27,19 @@ Tool::Tool Tool::Tools::operator[](Mode mode) const {
 	case Mode::Pencil:
 		return _pencil;
 		break;
+	case Mode::Save:
+		return _save;
+		break;
 	default:
-		return Tool();
+		return BaseTool();
 		break;
 	}
 }
 
 void Tool::Tools::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	_pencil.draw(target, states);
-	_rect.draw(target, states);
-	_line.draw(target, states);
-	_circle.draw(target, states);
-	_erase.draw(target, states);
+	for (auto &i : _draw) {
+		target.draw(*i, states);
+	}
 }
 
 void Tool::Tools::setThickness(const float thickness) {

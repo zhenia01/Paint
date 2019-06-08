@@ -176,6 +176,7 @@
     <ClCompile Include="Paint.cpp" />
     <ClCompile Include="Pencil.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Save.cpp" />
     <ClCompile Include="SpriteButton.cpp" />
     <ClCompile Include="TextButton.cpp" />
     <ClCompile Include="ThickLine.cpp" />
@@ -192,11 +193,11 @@
     <ClInclude Include="Line.h" />
     <ClInclude Include="Paint.h" />
     <ClInclude Include="Rectangle.h" />
-    <ClInclude Include="Tool.h" />
+    <ClInclude Include="Save.h" />
+    <ClInclude Include="BaseTool.h" />
     <ClInclude Include="Pencil.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="SpriteButton.h" />
-    <ClInclude Include="Test.h" />
     <ClInclude Include="TextButton.h" />
     <ClInclude Include="ThickLine.h" />
     <ClInclude Include="Tools.h" />

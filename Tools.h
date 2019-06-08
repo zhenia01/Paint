@@ -1,16 +1,20 @@
 #pragma once
 
+#include "BaseTool.h"
 #include "Pencil.h"
 #include "Line.h"
 #include "Circle.h"
 #include "Rectangle.h"
 #include "Erase.h"
+#include "Save.h"
+
+#include <memory>
 
 namespace Tool {
 	class Tools {
 	public:
 		Tools();
-		Tool operator[](Mode mode) const;
+		BaseTool operator[](Mode mode) const;
 
 		void draw(sf::RenderTarget&, sf::RenderStates) const;
 
@@ -18,18 +22,14 @@ namespace Tool {
 		void setColor(const sf::Color& color);
 
 	private:
-		//void initPencil();
-		//void initLine();
-		//void initCircle();
-		//void initRectangle();
-		//void initErase();
-
-	private:
 		Pencil _pencil;
 		Line _line;
 		Circle _circle;
 		Rectangle _rect;
 		Erase _erase;
+		Save _save;
+
+		std::list<std::unique_ptr<sf::Drawable>> _draw;
 	};
 
 }

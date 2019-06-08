@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Widget.h"
+#include <functional>
 
 namespace GUI {
 	class Button : public Widget {

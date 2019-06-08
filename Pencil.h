@@ -1,19 +1,15 @@
 #pragma once
-#include "Tool.h"
+#include "BaseTool.h"
 #include "ThickLine.h"
 
 namespace Tool {
 	class Pencil :
-		public Tool {
+		public BaseTool {
 	public:
 
-		Pencil();
+		Pencil(std::list<std::unique_ptr<sf::Drawable>>& list);
 
 		virtual ~Pencil();
-
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
-		std::list<ThickLine>& getLines() const;
 
 	public:
 		sf::Vector2f last;
@@ -21,7 +17,7 @@ namespace Tool {
 		sf::Color color;
 	
 	private:
-		static std::list<ThickLine> _lines;
+		std::list<std::unique_ptr<sf::Drawable>>& _lines;
 	};
 
 }
