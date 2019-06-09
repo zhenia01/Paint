@@ -7,6 +7,7 @@
 #include "Rectangle.h"
 #include "Erase.h"
 #include "Save.h"
+#include "Triangle.h"
 
 #include <memory>
 
@@ -28,6 +29,7 @@ namespace Tool {
 		Rectangle _rect;
 		Erase _erase;
 		Save _save;
+		Triangle _triangle;
 
 		std::list<std::unique_ptr<sf::Drawable>> _draw;
 	};

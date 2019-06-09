@@ -1,6 +1,6 @@
 #include "Tools.h"
 
-Tool::Tools::Tools() : _pencil(_draw), _circle(_draw), _line(_draw), _rect(_draw), _erase(_draw){
+Tool::Tools::Tools() : _pencil(_draw), _circle(_draw), _line(_draw), _rect(_draw), _erase(_draw), _save(_draw), _triangle(_draw){
 	
 }
 
@@ -16,7 +16,7 @@ Tool::BaseTool Tool::Tools::operator[](Mode mode) const {
 		return _circle;
 		break;
 	case Mode::Triangle:
-		return BaseTool();
+		return _triangle;
 		break;
 	case Mode::Line:
 		return _line;
@@ -48,6 +48,7 @@ void Tool::Tools::setThickness(const float thickness) {
 	_circle.thickness = thickness;
 	_erase.thickness = thickness;
 	_rect.thickness = thickness;
+	_triangle.thickness = thickness;
 }
 
 void Tool::Tools::setColor(const sf::Color& color) {
@@ -56,4 +57,7 @@ void Tool::Tools::setColor(const sf::Color& color) {
 	_circle.color = color;
 	_erase.color = color;
 	_rect.color = color;
+	_triangle.color = color;
 }
+
+

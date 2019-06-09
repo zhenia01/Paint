@@ -7,10 +7,10 @@ namespace Tool {
 		public BaseTool {
 	public:
 		
-		Save();
+		Save(std::list<std::unique_ptr<sf::Drawable>>& list);
 
 	private:
-		
+		std::list<std::unique_ptr<sf::Drawable>>& _list;
 	};
 }
 

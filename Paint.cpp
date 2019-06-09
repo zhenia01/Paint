@@ -22,12 +22,22 @@ Paint::Paint() :
 		_textureManager.load(Textures::ID::Thickness_small, "Assets/thickness_small.png");
 		_textureManager.load(Textures::ID::Thickness_medium, "Assets/thickness_medium.png");
 		_textureManager.load(Textures::ID::Thickness_big, "Assets/thickness_big.png");
-
+		_textureManager.load(Textures::ID::Zoom, "Assets/zoom.png");
 
 	} catch (std::runtime_error & err) {
 		std::cerr << err.what() << std::endl;
 		_window.close();
 	}
+
+
+	_shape.setPosition({ 105, 160 });
+	_shape.setSize({ 1093, 638 });
+	_shape.setFillColor(sf::Color::White);
+	_shape.setOutlineColor(sf::Color::Black);
+	_shape.setOutlineThickness(2.f);
+
+	zoom.reset({ 105, 160, 1093, 638 });
+	zoom.setViewport({ 105.f / 1200.f, 160 / 800.f, 1093 / 1200.f, 638 / 800.f });
 
 	initColors();
 	initTools();
@@ -35,7 +45,7 @@ Paint::Paint() :
 
 void Paint::initTools() {
 	for (int i = 0; i < 2; ++i) {
-		for (int j = 0; j < 5; ++j) {
+		for (int j = 0; j < 6; ++j) {
 			std::unique_ptr<GUI::SpriteButton> temp(new GUI::SpriteButton);
 			temp->setPosition(270.f + j * 82, 10.f + i * 76);
 			temp->setSize({ 64.f, 64.f });
@@ -76,7 +86,9 @@ void Paint::initTools() {
 	});
 
 	_tools[6]->setTexture(_textureManager.get(Textures::ID::Save));
-	_tools[6]->setCallBack([this]() {});
+	_tools[6]->setCallBack([this]() {
+		_canvas.setMode(Tool::Mode::Save);
+		});
 
 	_tools[7]->setTexture(_textureManager.get(Textures::ID::Thickness_small));
 	_tools[7]->setCallBack([this]() {
@@ -89,6 +101,20 @@ void Paint::initTools() {
 	_tools[9]->setTexture(_textureManager.get(Textures::ID::Thickness_big));
 	_tools[9]->setCallBack([this]() {
 		_canvas.setThickness(8.f); });
+
+	_tools[10]->setTexture(_textureManager.get(Textures::ID::Zoom));
+	_tools[10]->setCallBack([this]() {
+		//zoom.reset({ 105, 160, 1093, 638 });
+		//zoom.setViewport({ 105.f / 1200.f, 160 / 800.f, 1093 / 1200.f, 638 / 800.f });
+		zoom.zoom(1.f/1.5f);
+	});
+
+	_tools[11]->setTexture(_textureManager.get(Textures::ID::Zoom));
+	_tools[11]->setCallBack([this]() {
+		//zoom.reset({ 105, 160, 1093, 638 });
+		//zoom.setViewport({ 105.f / 1200.f, 160 / 800.f, 1093 / 1200.f, 638 / 800.f });
+		zoom.zoom(3.f/2.f);
+		});
 }
 
 void Paint::initColors() {
@@ -146,6 +172,10 @@ void Paint::run() {
 void Paint::render() {
 	_window.clear(sf::Color(0xf5, 0xf5, 0xf5));
 
+	_window.setView(_window.getDefaultView());
+
+	_window.draw(_shape);
+
 	for (auto& i : _colors) {
 		_window.draw(*i);
 	}
@@ -155,6 +185,10 @@ void Paint::render() {
 	for (auto& i : _tools) {
 		_window.draw(*i);
 	}
+
+	//_window.draw(_canvas);
+
+	_window.setView(zoom);
 
 	_window.draw(_canvas);
 
@@ -182,7 +216,7 @@ void Paint::processEvents() {
 				break;
 			}
 		}
-
+		
 		_canvas.handleEvent(event);
 	}
 }

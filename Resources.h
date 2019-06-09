@@ -11,7 +11,8 @@ namespace Textures {
 		Triangle,
 		Thickness_small,
 		Thickness_medium,
-		Thickness_big
+		Thickness_big, 
+		Zoom
 	};
 }
 

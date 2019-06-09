@@ -25,7 +25,7 @@ private:
 
 	sf::Vector2f _position;
 	sf::Vector2f _size;
-	sf::RectangleShape _shape;
+	//sf::RectangleShape _shape;
 
 	sf::Vector2f _lastPoint;
 	float _thickness;

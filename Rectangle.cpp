@@ -1,4 +1,5 @@
 #include "Rectangle.h"
+#include <iostream>
 
 Tool::Rectangle::Rectangle(std::list<std::unique_ptr<sf::Drawable>>& list) : BaseTool(Mode::Rectangle), thickness(2.f), color(sf::Color::Black), _rects(list) {
 
@@ -34,7 +35,7 @@ Tool::Rectangle::Rectangle(std::list<std::unique_ptr<sf::Drawable>>& list) : Bas
 
 			sf::Vector2f newLast{ static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y) };
 			auto diff = newLast - _rect.getPosition();
-			_rect.setSize(diff);
+			_rect.setSize(diff + sf::Vector2f(thickness, thickness));
 
 			_rects.back() = std::unique_ptr<sf::Drawable>(new sf::RectangleShape(_rect));
 		}

@@ -181,6 +181,7 @@
     <ClCompile Include="TextButton.cpp" />
     <ClCompile Include="ThickLine.cpp" />
     <ClCompile Include="Tools.cpp" />
+    <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +202,7 @@
     <ClInclude Include="TextButton.h" />
     <ClInclude Include="ThickLine.h" />
     <ClInclude Include="Tools.h" />
+    <ClInclude Include="Triangle.h" />
     <ClInclude Include="Widget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

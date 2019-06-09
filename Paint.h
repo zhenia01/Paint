@@ -31,6 +31,11 @@ private:
 
 	Canvas _canvas;
 
+	sf::View zoom;
+	sf::View fullView;
+
+	sf::RectangleShape _shape;
+
 };
 
 

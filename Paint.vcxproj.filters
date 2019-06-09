@@ -78,6 +78,9 @@
     <ClCompile Include="ThickLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Source Files\tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Paint.h">
@@ -132,6 +135,9 @@
       <Filter>Header Files\tools</Filter>
     </ClInclude>
     <ClInclude Include="BaseTool.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
       <Filter>Header Files\tools</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,7 +15,7 @@ Tool::Pencil::Pencil(std::list<std::unique_ptr<sf::Drawable>>& list) : BaseTool(
 
 		sf::Vector2f newLast{ static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y) };
 
-		ThickLine line(last, newLast, thickness, color);
+		ThickLine line(last + sf::Vector2f(thickness, thickness), newLast + sf::Vector2f(thickness, thickness), thickness, color);
 
 		_lines.push_back(std::unique_ptr<sf::Drawable>(new ThickLine(last, newLast, thickness, color)));
 
