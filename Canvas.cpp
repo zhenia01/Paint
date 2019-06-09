@@ -23,7 +23,7 @@ bool Canvas::handleEvent(const sf::Event& event,const sf::RenderWindow& window) 
 	} else if (event.type == event.MouseButtonReleased) {
 		if (_mode == Tool::Mode::Save) {
 			_tools[_mode].onPress(event, window);
-			_mode = Tool::Mode::None;
+			_mode = Tool::Mode::Pencil;
 		} else if (sf::FloatRect(_position.x, _position.y, _size.x, _size.y).contains({ static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y) })) {
 			_tools[_mode].onRelease(event, window);
 		}

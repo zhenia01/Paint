@@ -12,7 +12,8 @@ namespace Textures {
 		Thickness_small,
 		Thickness_medium,
 		Thickness_big, 
-		Zoom
+		Zoom_in,
+		Zoom_out
 	};
 }
 

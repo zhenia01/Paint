@@ -19,6 +19,7 @@ private:
 
 private:
 	sf::RenderWindow _window;
+
 	AssetManager<Fonts::ID, sf::Font> _fontManager;
 	AssetManager<Textures::ID, sf::Texture> _textureManager;
 
@@ -32,6 +33,7 @@ private:
 	Canvas _canvas;
 
 	sf::View _zoom;
+	sf::Vector2f _viewSize;
 	float _zoomFactor;
 
 	sf::RectangleShape _shape;
