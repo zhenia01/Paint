@@ -11,7 +11,7 @@ class Canvas : public sf::Drawable, public sf::Transformable, public sf::NonCopy
 public:
 	Canvas(const sf::Vector2f& pos, const sf::Vector2f& size);
 
-	bool handleEvent(const sf::Event& event);
+	bool handleEvent(const sf::Event& event, const sf::RenderWindow& zoom);
 
 	sf::Vector2f getSize() const;
 	void setColor(const sf::Color& color);

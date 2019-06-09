@@ -15,28 +15,29 @@ Canvas::Canvas(const sf::Vector2f& position, const sf::Vector2f& size) :
 	//_shape.setOutlineThickness(2.f);
 }
 
-bool Canvas::handleEvent(const sf::Event& event) {
+bool Canvas::handleEvent(const sf::Event& event,const sf::RenderWindow& window) {
 	if (event.type == event.MouseButtonPressed) {
 		if (sf::FloatRect(_position.x, _position.y, _size.x, _size.y).contains({ static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y) })) {
-			_tools[_mode].onPress(event);
+			_tools[_mode].onPress(event, window);
 		}
 	} else if (event.type == event.MouseButtonReleased) {
 		if (_mode == Tool::Mode::Save) {
-			_tools[_mode].onPress(event);
+			_tools[_mode].onPress(event, window);
+			_mode = Tool::Mode::None;
 		} else if (sf::FloatRect(_position.x, _position.y, _size.x, _size.y).contains({ static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y) })) {
-			_tools[_mode].onRelease(event);
+			_tools[_mode].onRelease(event, window);
 		}
 
 	} else if (event.type == event.MouseMoved) {
 		if (sf::FloatRect(_position.x, _position.y, _size.x, _size.y).contains({ static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y) })) {
 			if (_tools[_mode].status == Tool::Status::Dragging) {
-				_tools[_mode].onDrag(event);
+				_tools[_mode].onDrag(event, window);
 			} else {
-				_tools[_mode].onMove(event);
+				_tools[_mode].onMove(event, window);
 			}
 		} else {
 			if (_tools[_mode].status == Tool::Status::Dragging) {
-				_tools[_mode].onRelease(event);
+				_tools[_mode].onRelease(event, window);
 			}
 			_tools[_mode].onNothing();
 		}

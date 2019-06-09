@@ -8,7 +8,8 @@
 
 Paint::Paint() :
 	_window{ sf::VideoMode{ 1200, 800 }, "Paint", sf::Style::Close | sf::Style::Titlebar },
-	_canvas({ 105, 160 }, { 1093, 638 }) {
+	_canvas({ 105, 160 }, { 1093, 638 }),
+	_zoomFactor(1.f){
 	try {
 		_fontManager.load(Fonts::ID::Arial, "Assets/arial.ttf");
 
@@ -36,8 +37,8 @@ Paint::Paint() :
 	_shape.setOutlineColor(sf::Color::Black);
 	_shape.setOutlineThickness(2.f);
 
-	zoom.reset({ 105, 160, 1093, 638 });
-	zoom.setViewport({ 105.f / 1200.f, 160 / 800.f, 1093 / 1200.f, 638 / 800.f });
+	_zoom.reset({ 105, 160, 1093, 638 });
+	_zoom.setViewport({ 105.f / 1200.f, 160 / 800.f, 1093 / 1200.f, 638 / 800.f });
 
 	initColors();
 	initTools();
@@ -106,14 +107,14 @@ void Paint::initTools() {
 	_tools[10]->setCallBack([this]() {
 		//zoom.reset({ 105, 160, 1093, 638 });
 		//zoom.setViewport({ 105.f / 1200.f, 160 / 800.f, 1093 / 1200.f, 638 / 800.f });
-		zoom.zoom(1.f/1.5f);
+		_zoom.zoom(2.f / 3.f);
 	});
 
 	_tools[11]->setTexture(_textureManager.get(Textures::ID::Zoom));
 	_tools[11]->setCallBack([this]() {
 		//zoom.reset({ 105, 160, 1093, 638 });
 		//zoom.setViewport({ 105.f / 1200.f, 160 / 800.f, 1093 / 1200.f, 638 / 800.f });
-		zoom.zoom(3.f/2.f);
+		_zoom.zoom(3.f/2.f);
 		});
 }
 
@@ -188,7 +189,7 @@ void Paint::render() {
 
 	//_window.draw(_canvas);
 
-	_window.setView(zoom);
+	_window.setView(_zoom);
 
 	_window.draw(_canvas);
 
@@ -217,7 +218,25 @@ void Paint::processEvents() {
 			}
 		}
 		
-		_canvas.handleEvent(event);
+		_canvas.handleEvent(event, _window);
+
+		if (event.type == sf::Event::KeyPressed) {
+			switch (event.key.code) {
+				case sf::Keyboard::Right:
+				_zoom.move({ 100, 0 });
+				break;
+				case sf::Keyboard::Left:
+					_zoom.move({ -100, 0 });
+					break;
+				case sf::Keyboard::Up:
+					_zoom.move({ 0, -100 });
+					break;
+				case sf::Keyboard::Down:
+					_zoom.move({ 0, 100 });
+					break;
+			}
+		}
+		
 	}
 }
 

@@ -28,7 +28,7 @@ namespace Tool {
 
 	public:
 		using VoidFunc = std::function<void()>;
-		using EventFunc = std::function<void(const sf::Event&)>;
+		using EventFunc = std::function<void(const sf::Event&, const sf::RenderWindow&)>;
 
 	public:
 		BaseTool() : mode(Mode::None), status(Status::None), onNothing([this]() {status = Status::None; }) {};

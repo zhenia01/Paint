@@ -1,12 +1,13 @@
 #include "Triangle.h"
 
 Tool::Triangle::Triangle(std::list<std::unique_ptr<sf::Drawable>>& list) : _lines(list), count(0), thickness(2.f), color(sf::Color::Black) {
-	onPress = [&](const sf::Event & event) mutable {
+	onPress = [&](const sf::Event & event, const sf::RenderWindow& window) mutable {
 		
 		if (count < 3) {
 			status = Status::Moving;
 
-			sf::Vector2f newLast{ static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y) };
+			sf::Vector2f mousePos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+			sf::Vector2f newLast = mousePos;
 			last = newLast;
 
 			if (count == 0) {
@@ -29,16 +30,17 @@ Tool::Triangle::Triangle(std::list<std::unique_ptr<sf::Drawable>>& list) : _line
 			
 	};
 
-	onRelease = [&](const sf::Event&) mutable {
+	onRelease = [&](const sf::Event&, const sf::RenderWindow&) {
 	};
 
-	onDrag = [](const sf::Event&) {
+	onDrag = [](const sf::Event&, const sf::RenderWindow&) {
 
 	};
 
-	onMove = [&](const sf::Event & event) mutable {
+	onMove = [&](const sf::Event & event, const sf::RenderWindow& window) mutable {
 		if (!_lines.empty() && (count > 0 && count < 3)) {
-			_line.setEnd({ static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y) });
+			sf::Vector2f mousePos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+			_line.setEnd(mousePos);
 			_lines.back() = std::unique_ptr<sf::Drawable>(new ThickLine(_line));
 		}
 	};

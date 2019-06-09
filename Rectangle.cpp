@@ -3,10 +3,11 @@
 
 Tool::Rectangle::Rectangle(std::list<std::unique_ptr<sf::Drawable>>& list) : BaseTool(Mode::Rectangle), thickness(2.f), color(sf::Color::Black), _rects(list) {
 
-	onPress = [&](const sf::Event & event) mutable {
+	onPress = [&](const sf::Event & event, const sf::RenderWindow& window) mutable {
 		if (point.x < 0.1f && point.y < 0.1f) {
 			status = Status::Moving;
-			point = { static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y) };
+			sf::Vector2f mousePos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+			point = mousePos;
 
 			_rect.setPosition(point);
 			_rect.setSize({ 0.f, 0.f });
@@ -20,20 +21,21 @@ Tool::Rectangle::Rectangle(std::list<std::unique_ptr<sf::Drawable>>& list) : Bas
 		}
 	};
 
-	onRelease = [&](const sf::Event&) mutable {
+	onRelease = [&](const sf::Event&,const sf::RenderWindow&) mutable {
 		if (status == Status::None) {
 			point = { 0.f, 0.f };
 		}
 	};
 
-	onDrag = [](const sf::Event&) {
+	onDrag = [](const sf::Event&,const sf::RenderWindow&) {
 
 	};
 
-	onMove = [&](const sf::Event & event) mutable {
+	onMove = [&](const sf::Event & event, const sf::RenderWindow& window) mutable {
 		if ((point.x > 0.1f && point.y > 0.1f) && !_rects.empty()) {
+			sf::Vector2f mousePos = window.mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
 
-			sf::Vector2f newLast{ static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y) };
+			sf::Vector2f newLast = mousePos;
 			auto diff = newLast - _rect.getPosition();
 			_rect.setSize(diff + sf::Vector2f(thickness, thickness));
 

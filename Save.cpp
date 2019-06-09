@@ -5,7 +5,7 @@
 
 Tool::Save::Save(std::list<std::unique_ptr<sf::Drawable>>& list) : _list(list)  {
 
-	onPress = [&](const sf::Event &) mutable {
+	onPress = [&](const sf::Event &, const sf::RenderWindow&) mutable {
 		sf::RenderTexture texture;
 		texture.create(1200+105, 800+160);
 
@@ -22,12 +22,12 @@ Tool::Save::Save(std::list<std::unique_ptr<sf::Drawable>>& list) : _list(list)  
 		texture.getTexture().copyToImage().saveToFile("Saved/screenshot" + std::to_string(i) + ".png");
 	};
 
-	onRelease = [](const sf::Event&) {
+	onRelease = [](const sf::Event&, const sf::RenderWindow&) {
 	};
 
-	onDrag = [](const sf::Event &) {
+	onDrag = [](const sf::Event &, const sf::RenderWindow&) {
 	};
 
-	onMove = [](const sf::Event&) {};
+	onMove = [](const sf::Event&, const sf::RenderWindow&) {};
 	
 }

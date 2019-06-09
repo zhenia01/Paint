@@ -31,8 +31,8 @@ private:
 
 	Canvas _canvas;
 
-	sf::View zoom;
-	sf::View fullView;
+	sf::View _zoom;
+	float _zoomFactor;
 
 	sf::RectangleShape _shape;
 
