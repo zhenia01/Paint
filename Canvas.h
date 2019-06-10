@@ -18,6 +18,12 @@ public:
 	void setThickness(const float thickness);
 	void setMode(Tool::Mode mode);
 
+	void setFill(bool fill);
+	bool getFill() const;
+
+	void loadImage(const std::string& path);
+	void deleteAll();
+
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
@@ -25,15 +31,17 @@ private:
 
 	sf::Vector2f _position;
 	sf::Vector2f _size;
-	//sf::RectangleShape _shape;
 
 	sf::Vector2f _lastPoint;
 	float _thickness;
 	sf::Color _color;
+	bool _fill;
 	Tool::Mode _mode;
 
 	Tool::Tools _tools;
 
+	sf::Sprite _sprite;
+	sf::Texture _imageTexture;
 	
 };
 

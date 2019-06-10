@@ -21,7 +21,11 @@ namespace Tool {
 
 		void setThickness(const float thickness);
 		void setColor(const sf::Color& color);
+		void setFill(bool fill);
 
+		void deleteAll();
+
+		std::list<std::unique_ptr<sf::Drawable>> _draw;
 	private:
 		Pencil _pencil;
 		Line _line;
@@ -31,7 +35,6 @@ namespace Tool {
 		Save _save;
 		Triangle _triangle;
 
-		std::list<std::unique_ptr<sf::Drawable>> _draw;
 	};
 
 }

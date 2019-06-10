@@ -60,4 +60,14 @@ void Tool::Tools::setColor(const sf::Color& color) {
 	_triangle.color = color;
 }
 
+void Tool::Tools::setFill(bool fill) {
+	_triangle.fill = fill;
+	_rect.fill = fill;
+	_circle.fill = fill;
+}
+
+void Tool::Tools::deleteAll() {
+	_draw.clear();
+}
+
 

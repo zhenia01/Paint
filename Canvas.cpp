@@ -6,13 +6,7 @@
 #include <iostream>
 
 Canvas::Canvas(const sf::Vector2f& position, const sf::Vector2f& size) :
-	_size(size), _position(position), _thickness(2.f), _mode(Tool::Mode::Pencil) {
-
-	//_shape.setSize(size);
-	//_shape.setPosition(position);
-	//_shape.setFillColor(sf::Color::White);
-	//_shape.setOutlineColor(sf::Color::Black);
-	//_shape.setOutlineThickness(2.f);
+	_size(size), _position(position), _thickness(2.f), _mode(Tool::Mode::Pencil), _fill(false) {
 }
 
 bool Canvas::handleEvent(const sf::Event& event,const sf::RenderWindow& window) {
@@ -65,7 +59,31 @@ void Canvas::setMode(Tool::Mode mode) {
 	_mode = mode;
 }
 
+void Canvas::setFill(bool fill) {
+	_fill = fill;
+	_tools.setFill(true);
+}
+
+bool Canvas::getFill() const {
+	return _fill;
+}
+
+void Canvas::loadImage(const std::string& path) {
+	_tools.deleteAll();
+	_imageTexture.loadFromFile(path);
+	_sprite.setTexture(_imageTexture, true);
+	_sprite.setPosition(105, 160);
+
+	_tools._draw.push_front(std::unique_ptr<sf::Drawable>(new sf::Sprite(_sprite)));
+}
+
+void Canvas::deleteAll() {
+	_tools.deleteAll();
+}
+
 void Canvas::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	//target.draw(_shape, states);
+	/*if (_sprite.getPosition().x > 0.1f) {
+		target.draw(_sprite, states);
+	}*/
 	_tools.draw(target, states);
 }

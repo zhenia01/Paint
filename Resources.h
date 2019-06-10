@@ -9,11 +9,15 @@ namespace Textures {
 		Pencil,
 		Rectangle,
 		Triangle,
-		Thickness_small,
-		Thickness_medium,
-		Thickness_big, 
+		Thick_3px,
+		Thick_5px,
+		Thick_7px,
+		Thick_9px,
 		Zoom_in,
-		Zoom_out
+		Zoom_out,
+		Open,
+		Fill,
+		Clear
 	};
 }
 

@@ -1,6 +1,6 @@
 #include "Circle.h"
 
-Tool::Circle::Circle(std::list<std::unique_ptr<sf::Drawable>>& list) : thickness(2.f), color(sf::Color::Black), _circles(list) {
+Tool::Circle::Circle(std::list<std::unique_ptr<sf::Drawable>>& list) : thickness(2.f), color(sf::Color::Black), _circles(list), fill(false) {
 	onPress = [&](const sf::Event & event, const sf::RenderWindow& window) mutable {
 		if (point.x < 0.1f && point.y < 0.1f) {
 
@@ -13,7 +13,11 @@ Tool::Circle::Circle(std::list<std::unique_ptr<sf::Drawable>>& list) : thickness
 			_current.setRadius(0.f);
 			_current.setOutlineColor(color);
 			_current.setOutlineThickness(thickness);
-			_current.setFillColor(sf::Color::Transparent);
+			if (fill) {
+				_current.setFillColor(color);
+			} else {
+				_current.setFillColor(sf::Color::Transparent);
+			}
 			_circles.push_back(std::unique_ptr<sf::Drawable>(new sf::CircleShape(_current)));
 
 		} else {

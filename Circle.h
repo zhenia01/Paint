@@ -14,6 +14,7 @@ namespace Tool {
 		float thickness;
 		sf::Color color;
 		sf::CircleShape circle;
+		bool fill;
 
 	private:
 		//std::unique_ptr<sf::CircleShape> _current;

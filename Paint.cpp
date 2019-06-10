@@ -21,17 +21,24 @@ Paint::Paint() :
 		_textureManager.load(Textures::ID::Pencil, "Assets/pencil.png");
 		_textureManager.load(Textures::ID::Rectangle, "Assets/rectangle.png");
 		_textureManager.load(Textures::ID::Triangle, "Assets/triangle.png");
-		_textureManager.load(Textures::ID::Thickness_small, "Assets/thickness_small.png");
-		_textureManager.load(Textures::ID::Thickness_medium, "Assets/thickness_medium.png");
-		_textureManager.load(Textures::ID::Thickness_big, "Assets/thickness_big.png");
+		_textureManager.load(Textures::ID::Thick_3px, "Assets/thick_3px.png");
+		_textureManager.load(Textures::ID::Thick_5px, "Assets/thick_5px.png");
+		_textureManager.load(Textures::ID::Thick_7px, "Assets/thick_7px.png");
+		_textureManager.load(Textures::ID::Thick_9px, "Assets/thick_9px.png");
 		_textureManager.load(Textures::ID::Zoom_in, "Assets/zoom_in.png");
 		_textureManager.load(Textures::ID::Zoom_out, "Assets/zoom_out.png");
+		_textureManager.load(Textures::ID::Open, "Assets/open.png");
+		_textureManager.load(Textures::ID::Fill, "Assets/fill.png");
+		_textureManager.load(Textures::ID::Clear, "Assets/clear.png");
+
 
 	} catch (std::runtime_error& err) {
 		std::cerr << err.what() << std::endl;
-		_window.close();
+		_window.close();	
 	}
 
+	_icon.loadFromFile("Assets/pencil.png");
+	_window.setIcon(64, 64, _icon.getPixelsPtr());
 
 	_shape.setPosition({ 105, 160 });
 	_shape.setSize({ 1093, 638 });
@@ -40,7 +47,7 @@ Paint::Paint() :
 	_shape.setOutlineThickness(2.f);
 
 	_zoom.reset({ 105, 160, 1093, 638 });
-	_zoom.setViewport({ 105.f / 1200.f, 160 / 800.f, 1/* 1093 / 1200.f*/, 1/* 638 / 800.f */});
+	_zoom.setViewport({ 105.f / 1200.f, 160 / 800.f,  1093 / 1200.f, 638 / 800.f });
 	_viewSize = _zoom.getSize();
 
 	initColors();
@@ -48,6 +55,10 @@ Paint::Paint() :
 }
 
 void Paint::initTools() {
+
+	for (int i = 0; i < 5; ++i) {
+	}
+
 	for (int i = 0; i < 2; ++i) {
 		for (int j = 0; j < 6; ++j) {
 			std::unique_ptr<GUI::SpriteButton> temp(new GUI::SpriteButton);
@@ -94,29 +105,40 @@ void Paint::initTools() {
 		_canvas.setMode(Tool::Mode::Save);
 		});
 
-	_tools[7]->setTexture(_textureManager.get(Textures::ID::Thickness_small));
+	_tools[7]->setTexture(_textureManager.get(Textures::ID::Zoom_in));
 	_tools[7]->setCallBack([this]() {
-		_canvas.setThickness(2.f); });
-
-	_tools[8]->setTexture(_textureManager.get(Textures::ID::Thickness_medium));
-	_tools[8]->setCallBack([this]() {
-		_canvas.setThickness(4.f); });
-
-	_tools[9]->setTexture(_textureManager.get(Textures::ID::Thickness_big));
-	_tools[9]->setCallBack([this]() {
-		_canvas.setThickness(8.f); });
-
-	_tools[10]->setTexture(_textureManager.get(Textures::ID::Zoom_in));
-	_tools[10]->setCallBack([this]() {
 		_zoom.zoom(2.f / 3.f);
 		});
 
-	_tools[11]->setTexture(_textureManager.get(Textures::ID::Zoom_out));
-	_tools[11]->setCallBack([this]() {
+	_tools[8]->setTexture(_textureManager.get(Textures::ID::Zoom_out));
+	_tools[8]->setCallBack([this]() {
 		if (_zoom.getSize().x * 3.f / 2.f <= _viewSize.x) {
 			_zoom.zoom(3.f / 2.f);
+			if (_zoom.getSize().x >= _viewSize.x - 10) {
+				_zoom.reset({ 105, 160, 1093, 638 });
+			}
 		}
 		});
+
+	_tools[9]->setTexture(_textureManager.get(Textures::ID::Open));
+	_tools[9]->setCallBack([this]() {
+		std::filesystem::path path(std::filesystem::current_path());
+		path /= "Input";
+		for (auto& i : std::filesystem::directory_iterator(path)) {
+			_canvas.loadImage(i.path().string());
+		}
+		});
+
+	_tools[10]->setTexture(_textureManager.get(Textures::ID::Fill));
+	_tools[10]->setCallBack([this]() {
+		_canvas.setFill(!_canvas.getFill());
+		});
+
+	_tools[11]->setTexture(_textureManager.get(Textures::ID::Clear));
+	_tools[11]->setCallBack([this]() {
+		_canvas.deleteAll();
+		});
+
 }
 
 void Paint::initColors() {
@@ -166,7 +188,6 @@ void Paint::initColors() {
 void Paint::run() {
 	while (_window.isOpen()) {
 		processEvents();
-		update();
 		render();
 	}
 }
@@ -222,33 +243,30 @@ void Paint::processEvents() {
 		if (event.type == sf::Event::KeyPressed) {
 			switch (event.key.code) {
 			case sf::Keyboard::Right: {
-				if (_zoom.getCenter().x < 105 + 1093) {
-					_zoom.move({ 100, 0 });
+				if ((_zoom.getCenter().x + (_zoom.getSize().x / 2.f)) < (105 + 1093)) {
+					_zoom.move({ 50, 0 });
 				}
 					break;
 			}
 			case sf::Keyboard::Left: {
-				if (_zoom.getCenter().x > 105) {
-					_zoom.move({ -100, 0 });
+				if ((_zoom.getCenter().x - (_zoom.getSize().x / 2.f)) > 105) {
+					_zoom.move({ -50, 0 });
 				}
 					break;
 			}
 			case sf::Keyboard::Up: {
-				if (_zoom.getCenter().y > 160) {
-					_zoom.move({ 0, -100 });
+				if (((_zoom.getCenter().y - (_zoom.getSize().y / 2.f))) > 160) {
+					_zoom.move({ 0, -50 });
 				}
 					break;
 			}
 			case sf::Keyboard::Down: {
-				if (_zoom.getCenter().y < 160 + 630) {
-					_zoom.move({ 0 , 100 });
+				if (((_zoom.getCenter().y + (_zoom.getSize().y / 2.f))) < (160 + 630)) {
+					_zoom.move({ 0 , 50 });
 				}
 					break;
 			}
 			}
 		}
 	}
-}
-
-void Paint::update() {
 }

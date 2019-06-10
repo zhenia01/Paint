@@ -1,7 +1,8 @@
 #include "Rectangle.h"
 #include <iostream>
 
-Tool::Rectangle::Rectangle(std::list<std::unique_ptr<sf::Drawable>>& list) : BaseTool(Mode::Rectangle), thickness(2.f), color(sf::Color::Black), _rects(list) {
+Tool::Rectangle::Rectangle(std::list<std::unique_ptr<sf::Drawable>>& list) : BaseTool(Mode::Rectangle), thickness(2.f), 
+color(sf::Color::Black), _rects(list), fill(false) {
 
 	onPress = [&](const sf::Event & event, const sf::RenderWindow& window) mutable {
 		if (point.x < 0.1f && point.y < 0.1f) {
@@ -12,8 +13,12 @@ Tool::Rectangle::Rectangle(std::list<std::unique_ptr<sf::Drawable>>& list) : Bas
 			_rect.setPosition(point);
 			_rect.setSize({ 0.f, 0.f });
 			_rect.setOutlineColor(color);
+			if (fill) {
+				_rect.setFillColor(color);
+			} else {
+				_rect.setFillColor(sf::Color::Transparent);
+			}
 			_rect.setOutlineThickness(thickness);
-			_rect.setFillColor(sf::Color::Transparent);
 
 			_rects.push_back(std::unique_ptr<sf::Drawable>(new sf::RectangleShape(_rect)));
 		} else {

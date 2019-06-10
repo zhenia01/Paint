@@ -15,7 +15,6 @@ public:
 private:
 	void render();
 	void processEvents();
-	void update();
 
 private:
 	sf::RenderWindow _window;
@@ -38,6 +37,7 @@ private:
 
 	sf::RectangleShape _shape;
 
+	sf::Image _icon;
 };
 
 
