@@ -87,11 +87,11 @@
     <ClCompile Include="Square.cpp">
       <Filter>Source Files\tools</Filter>
     </ClCompile>
-    <ClCompile Include="Poly_6.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Poly_5.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Poly_6.cpp">
+      <Filter>Source Files\tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,11 +155,11 @@
     <ClInclude Include="Square.h">
       <Filter>Header Files\tools</Filter>
     </ClInclude>
-    <ClInclude Include="Poly_6.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Poly_5.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Poly_6.h">
+      <Filter>Header Files\tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,3 +1,7 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 #include "Tools.h"
 
 Tool::Tools::Tools() : _pencil(_draw), _circle(_draw), 
@@ -70,27 +74,40 @@ void Tool::Tools::setThickness(const float thickness) {
 	_poly_5.thickness = thickness;
 }
 
-void Tool::Tools::setColor(const sf::Color& color) {
-	_pencil.color = color;
-	_line.color = color;
-	_circle.color = color;
-	_rect.color = color;
-	_triangle.color = color;
-	_poly.color = color;
-	_square.color = color;
-	_poly_6.color = color;
-	_poly_5.color = color;
+void Tool::Tools::setOutlineColor(const sf::Color& color) {
+	_pencil.outlineColor = color;
+	_line.outlineColor = color;
+	_circle.outlineColor = color;
+	_rect.outlineColor = color;
+	_triangle.outlineColor = color;
+	_poly.outlineColor = color;
+	_square.outlineColor = color;
+	_poly_6.outlineColor = color;
+	_poly_5.outlineColor = color;
 
+}
+
+void Tool::Tools::setFillColor(const sf::Color& color) {
+	_circle.fillColor = color;
+	_rect.fillColor = color;
+	_triangle.fillColor = color;
+	_poly.fillColor = color;
+	_square.fillColor = color;
+	_poly_6.fillColor = color;
+	_poly_5.fillColor = color;
 }
 
 void Tool::Tools::setFill(bool fill) {
 	_triangle.fill = fill;
 	_rect.fill = fill;
 	_circle.fill = fill;
-	//_poly.fill = fill;
 	_square.fill = fill;
 	_poly_5.fill = fill;
 	_poly_6.fill = fill;
+}
+
+void Tool::Tools::setEraseColor(const sf::Color& color) {
+	_erase.fillColor = color;
 }
 
 void Tool::Tools::deleteAll() {

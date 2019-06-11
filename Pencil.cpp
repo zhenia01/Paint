@@ -1,6 +1,10 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 #include "Pencil.h"
 
-Tool::Pencil::Pencil(std::list<std::unique_ptr<sf::Drawable>>& list) : BaseTool(Mode::Pencil), thickness(2.f), color(sf::Color::Black), _lines(list) {
+Tool::Pencil::Pencil(std::list<std::unique_ptr<sf::Drawable>>& list) : BaseTool(Mode::Pencil), thickness(2.f), outlineColor(sf::Color::Black), _lines(list) {
 	onPress = [&](const sf::Event & event, const sf::RenderWindow& window) mutable {
 		status = Status::Dragging;
 
@@ -18,9 +22,9 @@ Tool::Pencil::Pencil(std::list<std::unique_ptr<sf::Drawable>>& list) : BaseTool(
 		sf::Vector2f mousePos = window.mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
 		sf::Vector2f newLast = mousePos;
 
-		ThickLine line(last + sf::Vector2f(thickness, thickness), newLast + sf::Vector2f(thickness, thickness), thickness, color);
+		ThickLine line(last + sf::Vector2f(thickness, thickness), newLast + sf::Vector2f(thickness, thickness), thickness, outlineColor);
 
-		_lines.push_back(std::unique_ptr<sf::Drawable>(new ThickLine(last, newLast, thickness, color)));
+		_lines.push_back(std::unique_ptr<sf::Drawable>(new ThickLine(last, newLast, thickness, outlineColor)));
 
 		last = newLast;
 	};

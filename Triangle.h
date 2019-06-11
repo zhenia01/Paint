@@ -11,7 +11,8 @@ namespace Tool {
 
 	public:
 		float thickness;
-		sf::Color color;
+		sf::Color fillColor;
+		sf::Color outlineColor;
 		sf::Vector2f last;
 		bool fill;
 

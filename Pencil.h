@@ -14,7 +14,7 @@ namespace Tool {
 	public:
 		sf::Vector2f last;
 		float thickness;
-		sf::Color color;
+		sf::Color outlineColor;
 	
 	private:
 		std::list<std::unique_ptr<sf::Drawable>>& _lines;

@@ -14,7 +14,8 @@ public:
 	bool handleEvent(const sf::Event& event, const sf::RenderWindow& zoom);
 
 	sf::Vector2f getSize() const;
-	void setColor(const sf::Color& color);
+	void setFillColor(const sf::Color& color);
+	void setOutlineColor(const sf::Color& color);
 	void setThickness(const float thickness);
 	void setMode(Tool::Mode mode);
 
@@ -25,6 +26,8 @@ public:
 	void deleteAll();
 	void save() const;
 
+	void setEraseColor(const sf::Color& color);
+
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
@@ -33,8 +36,6 @@ private:
 	sf::Vector2f _position;
 	sf::Vector2f _size;
 
-	float _thickness;
-	sf::Color _color;
 	bool _fill;
 	Tool::Mode _mode;
 

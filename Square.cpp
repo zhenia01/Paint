@@ -1,8 +1,12 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 #include "Square.h"
 #include <cmath>
 
 Tool::Square::Square(std::list<std::unique_ptr<sf::Drawable>>& list) : BaseTool(Mode::Square), thickness(2.f),
-color(sf::Color::Black), _squares(list), fill(false) {
+outlineColor(sf::Color::Black), fillColor(sf::Color::Black), _squares(list), fill(false) {
 
 	onPress = [&](const sf::Event & event, const sf::RenderWindow & window) mutable {
 		if (point.x < 0.1f && point.y < 0.1f) {
@@ -12,9 +16,9 @@ color(sf::Color::Black), _squares(list), fill(false) {
 
 			_square.setPosition(point);
 			_square.setSize({ 0.f, 0.f });
-			_square.setOutlineColor(color);
+			_square.setOutlineColor(outlineColor);
 			if (fill) {
-				_square.setFillColor(color);
+				_square.setFillColor(fillColor);
 			} else {
 				_square.setFillColor(sf::Color::Transparent);
 			}

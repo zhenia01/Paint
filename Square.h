@@ -10,7 +10,8 @@ namespace Tool {
 	public:
 		sf::Vector2f point;
 		float thickness;
-		sf::Color color;
+		sf::Color fillColor;
+		sf::Color outlineColor;
 		bool fill;
 
 	private:

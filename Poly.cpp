@@ -1,7 +1,12 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 #include "Poly.h"
 
 Tool::Poly::Poly(std::list<std::unique_ptr<sf::Drawable>>& list) : _polies(list), count(0),
-thickness(2.f), color(sf::Color::Black), fill(false), _vertex(sf::LineStrip) {
+thickness(2.f), outlineColor(sf::Color::Black), fillColor(sf::Color::Black),
+fill(false), _vertex(sf::LineStrip) {
 	onPress = [&](const sf::Event & event, const sf::RenderWindow & window) mutable {
 
 		status = Status::Moving;
@@ -15,7 +20,7 @@ thickness(2.f), color(sf::Color::Black), fill(false), _vertex(sf::LineStrip) {
 		_vertex[count].position = newLast;
 
 		if (fill) {
-			_vertex[count].color = color;
+			_vertex[count].color = fillColor;
 		} else {
 			_vertex[count].color = sf::Color::Transparent;
 		}
@@ -23,7 +28,7 @@ thickness(2.f), color(sf::Color::Black), fill(false), _vertex(sf::LineStrip) {
 			start = newLast;
 		}
 
-		_line = ThickLine(newLast, newLast, thickness, color);
+		_line = ThickLine(newLast, newLast, thickness, outlineColor);
 
 		_polies.push_back(std::unique_ptr<sf::Drawable>(new ThickLine(_line)));
 
@@ -55,11 +60,11 @@ thickness(2.f), color(sf::Color::Black), fill(false), _vertex(sf::LineStrip) {
 			//_vertex.resize(_vertex.getVertexCount() + 1);
 			_vertex[_vertex.getVertexCount() - 1].position = start;
 			if (fill) {
-				_vertex[_vertex.getVertexCount() - 1].color = color;
+				_vertex[_vertex.getVertexCount() - 1].color = fillColor;
 			} else {
 				_vertex[_vertex.getVertexCount() - 1].color = sf::Color::Transparent;
 			}
-			_line = ThickLine(start, last, thickness, color);
+			_line = ThickLine(start, last, thickness, outlineColor);
 
 			_polies.push_back(std::unique_ptr<sf::Drawable>(new sf::VertexArray(_vertex)));
 			_polies.push_back(std::unique_ptr<sf::Drawable>(new ThickLine(_line)));

@@ -24,8 +24,10 @@ namespace Tool {
 		void draw(sf::RenderTarget&, sf::RenderStates) const;
 
 		void setThickness(const float thickness);
-		void setColor(const sf::Color& color);
+		void setOutlineColor(const sf::Color& color);
+		void setFillColor(const sf::Color& color);
 		void setFill(bool fill);
+		void setEraseColor(const sf::Color& color);
 
 		void deleteAll();
 

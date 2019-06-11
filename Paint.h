@@ -25,7 +25,9 @@ private:
 	AssetManager<Textures::ID, sf::Texture> _textureManager;
 
 	std::vector<std::unique_ptr<GUI::TextButton>> _colors;
-	sf::RectangleShape _currentColor;
+	GUI::TextButton _currentFillColor;
+	GUI::TextButton _currentOutlineColor;
+	bool _fill;
 	void initColors();
 
 	std::vector<std::unique_ptr<GUI::SpriteButton>> _tools;

@@ -13,7 +13,7 @@ namespace Tool {
 	public:
 		sf::Vector2f last;
 		float thickness;
-		sf::Color color;
+		sf::Color outlineColor;
 
 	private:
 

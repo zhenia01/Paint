@@ -1,6 +1,11 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 #include "Line.h"
 
-Tool::Line::Line(std::list<std::unique_ptr<sf::Drawable>>& list) : BaseTool(Mode::Line), thickness(2.f), color(sf::Color::Black), _lines(list) {
+Tool::Line::Line(std::list<std::unique_ptr<sf::Drawable>>& list) : 
+	BaseTool(Mode::Line), thickness(2.f), outlineColor(sf::Color::Black), _lines(list) {
 
 	onPress = [&](const sf::Event & event, const sf::RenderWindow& window) mutable {
 		if (last.x < 0.1f && last.y < 0.1f) {
@@ -11,7 +16,7 @@ Tool::Line::Line(std::list<std::unique_ptr<sf::Drawable>>& list) : BaseTool(Mode
 			sf::Vector2f newLast = mousePos;
 			last = newLast;
 
-			_line = ThickLine(newLast, newLast, thickness, color);
+			_line = ThickLine(newLast, newLast, thickness, outlineColor);
 			
 			_lines.push_back(std::unique_ptr<sf::Drawable>(new ThickLine(_line)));
 		} else {

@@ -11,7 +11,6 @@ GUI::SpriteButton::SpriteButton() : _thickness(0) {
 }
 
 GUI::SpriteButton::SpriteButton(const sf::Vector2f& size, sf::Texture* texture) {
-	SpriteButton();
 	_shape.setSize(size);
 	_sprite.setTexture(*texture);
 }

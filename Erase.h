@@ -14,6 +14,7 @@ namespace Tool {
 		sf::Vector2f point;
 		float thickness;
 		sf::RectangleShape rect;
+		sf::Color fillColor;
 
 	private:
 		sf::RectangleShape _eraser;

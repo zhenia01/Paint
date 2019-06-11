@@ -10,7 +10,7 @@
 Paint::Paint() :
 	_window{ sf::VideoMode{ 1200, 800 }, "Paint", sf::Style::Close | sf::Style::Titlebar },
 	_canvas({ 105, 160 }, { 1093, 638 }),
-	_zoomFactor(1.f){
+	_zoomFactor(1.f), _fill(false){
 	try {
 		_fontManager.load(Fonts::ID::Arial, "Assets/arial.ttf");
 
@@ -35,6 +35,7 @@ Paint::Paint() :
 		_textureManager.load(Textures::ID::Square, "Assets/square.png");
 		_textureManager.load(Textures::ID::Poly_5, "Assets/poly_5.png");
 		_textureManager.load(Textures::ID::Poly_6, "Assets/poly_6.png");
+		_textureManager.load(Textures::ID::Roll, "Assets/roll.png");
 
 	} catch (std::runtime_error& err) {
 		std::cerr << err.what() << std::endl;
@@ -54,7 +55,7 @@ void Paint::initTools() {
 
 	// tools
 	for (int i = 0; i < 2; ++i) {
-		for (int j = 0; j < 8; ++j) {
+		for (int j = 0; j < 9; ++j) {
 			std::unique_ptr<GUI::SpriteButton> temp(new GUI::SpriteButton);
 			temp->setPosition(270.f + j * 82, 10.f + i * 76);
 			temp->setSize({ 64.f, 64.f });
@@ -63,6 +64,8 @@ void Paint::initTools() {
 			_tools.push_back(std::move(temp));
 		}
 	}
+
+	_tools.pop_back();
 
 	_tools[3]->setOutlineThickness(3);
 
@@ -194,8 +197,18 @@ void Paint::initTools() {
 
 	_tools[15]->setTexture(_textureManager.get(Textures::ID::Clear));
 	_tools[15]->setCallBack([this]() {
+		_canvasShape.setFillColor(sf::Color::White);
+		_canvas.setEraseColor(sf::Color::White);
 		_canvas.deleteAll();
 		});
+
+	_tools[16]->setTexture(_textureManager.get(Textures::ID::Roll));
+	_tools[16]->setCallBack([this]() {
+		_canvasShape.setFillColor(_currentFillColor.getFillColor());
+		_canvas.setEraseColor(_currentFillColor.getFillColor());
+		_canvas.deleteAll();
+	});
+
 
 	// thickness
 	for (int i = 0; i < 5; ++i) {
@@ -207,51 +220,51 @@ void Paint::initTools() {
 		_tools.push_back(std::move(temp));
 	}
 
-	_tools[16]->setOutlineThickness(3);
+	_tools[17]->setOutlineThickness(3);
 
-	_tools[16]->setTexture(_textureManager.get(Textures::ID::Thick_1px));
-	_tools[16]->setCallBack([this]() {
-		_canvas.setThickness(1.f);
-		for (size_t i = 14; i <= 20; ++i) {
-			_tools[i]->setOutlineThickness(1);
-		}
-		_tools[16]->setOutlineThickness(3);
-		});
-
-	_tools[17]->setTexture(_textureManager.get(Textures::ID::Thick_3px));
+	_tools[17]->setTexture(_textureManager.get(Textures::ID::Thick_1px));
 	_tools[17]->setCallBack([this]() {
-		_canvas.setThickness(3.f);
-		for (size_t i = 14; i <= 20; ++i) {
+		_canvas.setThickness(1.f);
+		for (size_t i = 17; i <= 21; ++i) {
 			_tools[i]->setOutlineThickness(1);
 		}
 		_tools[17]->setOutlineThickness(3);
 		});
 
-	_tools[18]->setTexture(_textureManager.get(Textures::ID::Thick_5px));
+	_tools[18]->setTexture(_textureManager.get(Textures::ID::Thick_3px));
 	_tools[18]->setCallBack([this]() {
-		_canvas.setThickness(5.f);
-		for (size_t i = 14; i <= 20; ++i) {
+		_canvas.setThickness(3.f);
+		for (size_t i = 17; i <= 21; ++i) {
 			_tools[i]->setOutlineThickness(1);
 		}
 		_tools[18]->setOutlineThickness(3);
 		});
 
-	_tools[19]->setTexture(_textureManager.get(Textures::ID::Thick_7px));
+	_tools[19]->setTexture(_textureManager.get(Textures::ID::Thick_5px));
 	_tools[19]->setCallBack([this]() {
-		_canvas.setThickness(7.f);
-		for (size_t i = 14; i <= 20; ++i) {
+		_canvas.setThickness(5.f);
+		for (size_t i = 17; i <= 21; ++i) {
 			_tools[i]->setOutlineThickness(1);
 		}
 		_tools[19]->setOutlineThickness(3);
 		});
 
-	_tools[20]->setTexture(_textureManager.get(Textures::ID::Thick_9px));
+	_tools[20]->setTexture(_textureManager.get(Textures::ID::Thick_7px));
 	_tools[20]->setCallBack([this]() {
-		_canvas.setThickness(9.f);
-		for (size_t i = 14; i <= 20; ++i) {
+		_canvas.setThickness(7.f);
+		for (size_t i = 17; i <= 21; ++i) {
 			_tools[i]->setOutlineThickness(1);
 		}
 		_tools[20]->setOutlineThickness(3);
+		});
+
+	_tools[21]->setTexture(_textureManager.get(Textures::ID::Thick_9px));
+	_tools[21]->setCallBack([this]() {
+		_canvas.setThickness(9.f);
+		for (size_t i = 17; i <= 21; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[21]->setOutlineThickness(3);
 		});
 }
 
@@ -282,18 +295,44 @@ void Paint::initColors() {
 		}
 	}
 
+	_currentOutlineColor.setSize({ 30.f, 70.f });
+	_currentOutlineColor.setFillColor(sf::Color::Black);
+	_currentOutlineColor.setPosition({ 15.f, 490.f });
+	_currentOutlineColor.setOutlineThickness(3);
+	_currentOutlineColor.setOutlineColor(sf::Color::Black);
+
+	_currentFillColor.setSize({ 30.f, 70.f });
+	_currentFillColor.setFillColor(sf::Color::White);
+	_currentFillColor.setPosition({ 55.f, 490.f });
+	_currentFillColor.setOutlineThickness(1);
+	_currentFillColor.setOutlineColor(sf::Color::Black);
+
+	_currentFillColor.setCallBack([this]() {
+		_fill = true;
+		_currentOutlineColor.setOutlineThickness(1.f);
+		_currentFillColor.setOutlineThickness(3.f);
+		});
+
+	_currentOutlineColor.setCallBack([this]() {
+		_fill = false;
+		_currentFillColor.setOutlineThickness(1.f);
+		_currentOutlineColor.setOutlineThickness(3.f);
+		});
+
+
 	for (auto& i : _colors) {
 		i->setCallBack([this, &i]() {
-			_canvas.setColor(i->getFillColor());
-			_currentColor.setFillColor(i->getFillColor());
+			if (_fill) {
+				_canvas.setFillColor(i->getFillColor());
+				_currentFillColor.setFillColor(i->getFillColor());
+				//_canvasShape.setFillColor(_currentFillColor.getFillColor());
+			} else {
+				_canvas.setOutlineColor(i->getFillColor());
+				_currentOutlineColor.setFillColor(i->getFillColor());
+			}
 			});
 	}
 
-	_currentColor.setSize({ 70.f, 70.f });
-	_currentColor.setFillColor(sf::Color::Black);
-	_currentColor.setPosition({ 15.f, 490.f });
-	_currentColor.setOutlineThickness(1);
-	_currentColor.setOutlineColor(sf::Color::Black);
 
 	_colors[0]->setFillColor(sf::Color(0x80, 0x00, 0x00));
 	_colors[1]->setFillColor(sf::Color(0xff, 0x00, 0x00));
@@ -331,7 +370,8 @@ void Paint::render() {
 		_window.draw(*i);
 	}
 
-	_window.draw(_currentColor);
+	_window.draw(_currentFillColor);
+	_window.draw(_currentOutlineColor);
 
 	for (auto& i : _tools) {
 		_window.draw(*i);
@@ -365,6 +405,9 @@ void Paint::processEvents() {
 				break;
 			}
 		}
+
+		_currentFillColor.handleEvent(event);
+		_currentOutlineColor.handleEvent(event);
 
 		_canvas.handleEvent(event, _window);
 

@@ -6,7 +6,7 @@
 #include <iostream>
 
 Canvas::Canvas(const sf::Vector2f& position, const sf::Vector2f& size) :
-	_size(size), _position(position), _thickness(2.f), _mode(Tool::Mode::Pencil), _fill(false) {
+	_size(size), _position(position), _mode(Tool::Mode::Pencil), _fill(false) {
 }
 
 bool Canvas::handleEvent(const sf::Event& event,const sf::RenderWindow& window) {
@@ -42,13 +42,15 @@ sf::Vector2f Canvas::getSize() const {
 	return _size;
 }
 
-void Canvas::setColor(const sf::Color& color) {
-	_color = color;
-	_tools.setColor(color);
+void Canvas::setFillColor(const sf::Color& color) {
+	_tools.setFillColor(color);
+}
+
+void Canvas::setOutlineColor(const sf::Color& color) {
+	_tools.setOutlineColor(color);
 }
 
 void Canvas::setThickness(const float thickness) {
-	_thickness = thickness;
 	_tools.setThickness(thickness);
 }
 
@@ -80,6 +82,10 @@ void Canvas::deleteAll() {
 
 void Canvas::save() const {
 	_tools[Tool::Mode::Save].onPress(sf::Event(), sf::RenderWindow());
+}
+
+void Canvas::setEraseColor(const sf::Color& color) {
+	_tools.setEraseColor(color);
 }
 
 void Canvas::draw(sf::RenderTarget& target, sf::RenderStates states) const {

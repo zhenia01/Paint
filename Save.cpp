@@ -1,6 +1,8 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 #include "Save.h"
-#include <array>
-#include <iostream>
 
 Tool::Save::Save(std::list<std::unique_ptr<sf::Drawable>>& list) : _list(list)  {
 

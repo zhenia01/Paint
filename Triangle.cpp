@@ -1,7 +1,11 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 #include "Triangle.h"
 
 Tool::Triangle::Triangle(std::list<std::unique_ptr<sf::Drawable>>& list) : _lines(list), count(0), 
-thickness(2.f), color(sf::Color::Black), fill(false), _vertex(sf::Triangles, 3) {
+thickness(2.f), outlineColor(sf::Color::Black), fillColor(sf::Color::Black), fill(false), _vertex(sf::Triangles, 3) {
 	onPress = [&](const sf::Event & event, const sf::RenderWindow& window) mutable {
 		
 		if (count < 3) {
@@ -13,7 +17,7 @@ thickness(2.f), color(sf::Color::Black), fill(false), _vertex(sf::Triangles, 3) 
 
 			_vertex[count].position = newLast;
 			if (fill) {
-				_vertex[count].color = color;
+				_vertex[count].color = fillColor;
 			} else {
 				_vertex[count].color = sf::Color::Transparent;
 			}
@@ -22,16 +26,21 @@ thickness(2.f), color(sf::Color::Black), fill(false), _vertex(sf::Triangles, 3) 
 				start = newLast;
 			}
 
-			_line = ThickLine(newLast, newLast, thickness, color);
+			_line = ThickLine(newLast, newLast, thickness, outlineColor);
 
 			_lines.push_back(std::unique_ptr<sf::Drawable>(new ThickLine(_line)));
 
 			count++;
 
 			if (count == 3) {
-				_line = ThickLine(start, last, thickness, color);
-				_lines.push_back(std::unique_ptr<sf::Drawable>(new sf::VertexArray(_vertex)));
+				_line = ThickLine(start, last, thickness, outlineColor);
+				std::list<std::unique_ptr<sf::Drawable>>::const_iterator ins = _lines.cend();
+				--ins;
+				--ins;
+				--ins;
+				_lines.insert(ins, std::unique_ptr<sf::Drawable>(new sf::VertexArray(_vertex)));
 				_lines.push_back(std::unique_ptr<sf::Drawable>(new ThickLine(_line)));
+
 				count = 0;
 			}
 

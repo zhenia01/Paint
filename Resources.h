@@ -22,7 +22,8 @@ namespace Textures {
 		Poly,
 		Square,
 		Poly_5,
-		Poly_6
+		Poly_6,
+		Roll
 	};
 }
 

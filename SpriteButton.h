@@ -32,7 +32,6 @@ namespace GUI {
 		sf::Clock _time;
 
 	private:
-		//virtual void updateShape() override;
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		virtual void onMouseEntered() override;
 		virtual void onMouseLeft() override;

@@ -74,7 +74,6 @@ void GUI::Label::updateShape() {
 
 void GUI::Label::centering() {
 	auto textRect = getTextBounds();
-	//_text.setPosition({ (getSize().x - textRect.width) / 2.f, (getSize().y - textRect.height) / 2.f - textRect.top });
 	_text.setOrigin(textRect.width / 2.f + textRect.left, textRect.height / 2.f + textRect.top);
 	_text.setPosition(getSize().x / 2.f, getSize().y / 2.f);
 }

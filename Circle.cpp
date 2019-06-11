@@ -1,6 +1,11 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 #include "Circle.h"
 
-Tool::Circle::Circle(std::list<std::unique_ptr<sf::Drawable>>& list) : thickness(2.f), color(sf::Color::Black), _circles(list), fill(false) {
+Tool::Circle::Circle(std::list<std::unique_ptr<sf::Drawable>>& list) : thickness(2.f),
+outlineColor(sf::Color::Black),fillColor(sf::Color::White), _circles(list), fill(false) {
 	onPress = [&](const sf::Event & event, const sf::RenderWindow& window) mutable {
 		if (point.x < 0.1f && point.y < 0.1f) {
 
@@ -11,10 +16,10 @@ Tool::Circle::Circle(std::list<std::unique_ptr<sf::Drawable>>& list) : thickness
 
 			_current.setPosition(point);
 			_current.setRadius(0.f);
-			_current.setOutlineColor(color);
+			_current.setOutlineColor(outlineColor);;
 			_current.setOutlineThickness(thickness);
 			if (fill) {
-				_current.setFillColor(color);
+				_current.setFillColor(fillColor);
 			} else {
 				_current.setFillColor(sf::Color::Transparent);
 			}
