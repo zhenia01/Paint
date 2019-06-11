@@ -11,8 +11,6 @@ namespace GUI {
 	{
 	public:
 
-		//using PTR = std::shared_ptr<Widget>;
-
 		Widget() = default;
 		virtual ~Widget() = default;
 

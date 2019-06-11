@@ -41,6 +41,10 @@ void GUI::SpriteButton::setOutlineThickness(float thickness) {
 	_thickness = thickness;
 }
 
+float GUI::SpriteButton::getOutlineThickness() const {
+	return _thickness;
+}
+
 void GUI::SpriteButton::onClick() {
 	_callback();
 	_shape.setOutlineThickness(_thickness + 1);

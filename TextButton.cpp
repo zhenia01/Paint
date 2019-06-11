@@ -3,7 +3,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 #include "TextButton.h"
-#include <iostream>
 
 GUI::TextButton::TextButton() : _thickness(0.f) {
 }

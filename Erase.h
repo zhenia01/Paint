@@ -13,7 +13,6 @@ namespace Tool {
 	public:
 		sf::Vector2f point;
 		float thickness;
-		sf::Color color;
 		sf::RectangleShape rect;
 
 	private:

@@ -3,17 +3,16 @@
 #include "BaseTool.h"
 
 namespace Tool {
-	class Circle:
-		public BaseTool{
+	class Poly_5 :
+		public BaseTool {
 	public:
-		Circle(std::list<std::unique_ptr<sf::Drawable>>& list);
-		virtual ~Circle();
+		Poly_5(std::list<std::unique_ptr<sf::Drawable>>& list);
+		virtual ~Poly_5();
 
 	public:
 		sf::Vector2f point;
 		float thickness;
 		sf::Color color;
-		sf::CircleShape circle;
 		bool fill;
 
 	private:

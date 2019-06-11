@@ -9,6 +9,7 @@ namespace Textures {
 		Pencil,
 		Rectangle,
 		Triangle,
+		Thick_1px,
 		Thick_3px,
 		Thick_5px,
 		Thick_7px,
@@ -17,7 +18,11 @@ namespace Textures {
 		Zoom_out,
 		Open,
 		Fill,
-		Clear
+		Clear,
+		Poly,
+		Square,
+		Poly_5,
+		Poly_6
 	};
 }
 

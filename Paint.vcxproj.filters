@@ -81,6 +81,18 @@
     <ClCompile Include="Triangle.cpp">
       <Filter>Source Files\tools</Filter>
     </ClCompile>
+    <ClCompile Include="Poly.cpp">
+      <Filter>Source Files\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Square.cpp">
+      <Filter>Source Files\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Poly_6.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Poly_5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Paint.h">
@@ -98,9 +110,6 @@
     <ClInclude Include="Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextButton.h">
-      <Filter>Header Files\gui</Filter>
-    </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>Header Files\gui</Filter>
     </ClInclude>
@@ -109,9 +118,6 @@
     </ClInclude>
     <ClInclude Include="ThickLine.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Canvas.h">
-      <Filter>Header Files\gui</Filter>
     </ClInclude>
     <ClInclude Include="Line.h">
       <Filter>Header Files\tools</Filter>
@@ -139,6 +145,21 @@
     </ClInclude>
     <ClInclude Include="Triangle.h">
       <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Poly.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Canvas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Square.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Poly_6.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Poly_5.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

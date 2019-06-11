@@ -19,8 +19,9 @@ Paint::Paint() :
 		_textureManager.load(Textures::ID::Erase, "Assets/erase.png");
 		_textureManager.load(Textures::ID::Line, "Assets/line.png");
 		_textureManager.load(Textures::ID::Pencil, "Assets/pencil.png");
-		_textureManager.load(Textures::ID::Rectangle, "Assets/rectangle.png");
+		_textureManager.load(Textures::ID::Rectangle, "Assets/rect.png");
 		_textureManager.load(Textures::ID::Triangle, "Assets/triangle.png");
+		_textureManager.load(Textures::ID::Thick_1px, "Assets/thick_1px.png");
 		_textureManager.load(Textures::ID::Thick_3px, "Assets/thick_3px.png");
 		_textureManager.load(Textures::ID::Thick_5px, "Assets/thick_5px.png");
 		_textureManager.load(Textures::ID::Thick_7px, "Assets/thick_7px.png");
@@ -30,25 +31,20 @@ Paint::Paint() :
 		_textureManager.load(Textures::ID::Open, "Assets/open.png");
 		_textureManager.load(Textures::ID::Fill, "Assets/fill.png");
 		_textureManager.load(Textures::ID::Clear, "Assets/clear.png");
-
+		_textureManager.load(Textures::ID::Poly, "Assets/poly.png");
+		_textureManager.load(Textures::ID::Square, "Assets/square.png");
+		_textureManager.load(Textures::ID::Poly_5, "Assets/poly_5.png");
+		_textureManager.load(Textures::ID::Poly_6, "Assets/poly_6.png");
 
 	} catch (std::runtime_error& err) {
 		std::cerr << err.what() << std::endl;
 		_window.close();	
 	}
 
-	_icon.loadFromFile("Assets/pencil.png");
-	_window.setIcon(64, 64, _icon.getPixelsPtr());
+	setIcon();
 
-	_shape.setPosition({ 105, 160 });
-	_shape.setSize({ 1093, 638 });
-	_shape.setFillColor(sf::Color::White);
-	_shape.setOutlineColor(sf::Color::Black);
-	_shape.setOutlineThickness(2.f);
-
-	_zoom.reset({ 105, 160, 1093, 638 });
-	_zoom.setViewport({ 105.f / 1200.f, 160 / 800.f,  1093 / 1200.f, 638 / 800.f });
-	_viewSize = _zoom.getSize();
+	initCanvasShape();
+	initZoom();
 
 	initColors();
 	initTools();
@@ -56,11 +52,9 @@ Paint::Paint() :
 
 void Paint::initTools() {
 
-	for (int i = 0; i < 5; ++i) {
-	}
-
+	// tools
 	for (int i = 0; i < 2; ++i) {
-		for (int j = 0; j < 6; ++j) {
+		for (int j = 0; j < 8; ++j) {
 			std::unique_ptr<GUI::SpriteButton> temp(new GUI::SpriteButton);
 			temp->setPosition(270.f + j * 82, 10.f + i * 76);
 			temp->setSize({ 64.f, 64.f });
@@ -70,48 +64,111 @@ void Paint::initTools() {
 		}
 	}
 
+	_tools[3]->setOutlineThickness(3);
+
 	_tools[0]->setTexture(_textureManager.get(Textures::ID::Circle));
 	_tools[0]->setCallBack([this]() {
 		_canvas.setMode(Tool::Mode::Circle);
+		for (size_t i = 0; i <= 9; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[0]->setOutlineThickness(3);
 		});
 
 	_tools[1]->setTexture(_textureManager.get(Textures::ID::Erase));
 	_tools[1]->setCallBack([this]() {
 		_canvas.setMode(Tool::Mode::Erase);
+		for (size_t i = 0; i <= 9; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[1]->setOutlineThickness(3);
 		});
 
 	_tools[2]->setTexture(_textureManager.get(Textures::ID::Line));
 	_tools[2]->setCallBack([this]() {
 		_canvas.setMode(Tool::Mode::Line);
+		for (size_t i = 0; i <= 9; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[2]->setOutlineThickness(3);
 		});
 
 	_tools[3]->setTexture(_textureManager.get(Textures::ID::Pencil));
 	_tools[3]->setCallBack([this]() {
 		_canvas.setMode(Tool::Mode::Pencil);
+		for (size_t i = 0; i <= 9; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[3]->setOutlineThickness(3);
 		});
 
 	_tools[4]->setTexture(_textureManager.get(Textures::ID::Rectangle));
 	_tools[4]->setCallBack([this]() {
 		_canvas.setMode(Tool::Mode::Rectangle);
+		for (size_t i = 0; i <= 9; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[4]->setOutlineThickness(3);
 		});
 
-	_tools[5]->setTexture(_textureManager.get(Textures::ID::Triangle));
+	_tools[5]->setTexture(_textureManager.get(Textures::ID::Square));
 	_tools[5]->setCallBack([this]() {
-		_canvas.setMode(Tool::Mode::Triangle);
+		_canvas.setMode(Tool::Mode::Square);
+		for (size_t i = 0; i <= 7; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[5]->setOutlineThickness(3);
 		});
 
-	_tools[6]->setTexture(_textureManager.get(Textures::ID::Save));
+	_tools[6]->setTexture(_textureManager.get(Textures::ID::Triangle));
 	_tools[6]->setCallBack([this]() {
-		_canvas.setMode(Tool::Mode::Save);
+		_canvas.setMode(Tool::Mode::Triangle);
+		for (size_t i = 0; i <= 9; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[6]->setOutlineThickness(3);
 		});
 
-	_tools[7]->setTexture(_textureManager.get(Textures::ID::Zoom_in));
+	_tools[7]->setTexture(_textureManager.get(Textures::ID::Poly));
 	_tools[7]->setCallBack([this]() {
+		_canvas.setMode(Tool::Mode::Poly);
+		for (size_t i = 0; i <= 9; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[7]->setOutlineThickness(3);
+		});
+
+	_tools[8]->setTexture(_textureManager.get(Textures::ID::Poly_5));
+	_tools[8]->setCallBack([this]() {
+		_canvas.setMode(Tool::Mode::Poly_5);
+		for (size_t i = 0; i <= 9; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[8]->setOutlineThickness(3);
+		});
+
+	_tools[9]->setTexture(_textureManager.get(Textures::ID::Poly_6));
+	_tools[9]->setCallBack([this]() {
+		_canvas.setMode(Tool::Mode::Poly_6);
+		for (size_t i = 0; i <= 9; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[9]->setOutlineThickness(3);
+		});
+
+	_tools[10]->setTexture(_textureManager.get(Textures::ID::Fill));
+	_tools[10]->setCallBack([this]() {
+		_canvas.setFill(!_canvas.getFill());
+		_tools[10]->setOutlineThickness((_tools[7]->getOutlineThickness() < 2.f ? 3.f : 1.f));
+		});
+
+	_tools[11]->setTexture(_textureManager.get(Textures::ID::Zoom_in));
+	_tools[11]->setCallBack([this]() {
 		_zoom.zoom(2.f / 3.f);
 		});
 
-	_tools[8]->setTexture(_textureManager.get(Textures::ID::Zoom_out));
-	_tools[8]->setCallBack([this]() {
+	_tools[12]->setTexture(_textureManager.get(Textures::ID::Zoom_out));
+	_tools[12]->setCallBack([this]() {
 		if (_zoom.getSize().x * 3.f / 2.f <= _viewSize.x) {
 			_zoom.zoom(3.f / 2.f);
 			if (_zoom.getSize().x >= _viewSize.x - 10) {
@@ -120,8 +177,13 @@ void Paint::initTools() {
 		}
 		});
 
-	_tools[9]->setTexture(_textureManager.get(Textures::ID::Open));
-	_tools[9]->setCallBack([this]() {
+	_tools[13]->setTexture(_textureManager.get(Textures::ID::Save));
+	_tools[13]->setCallBack([this]() {
+		_canvas.save();
+		});
+
+	_tools[14]->setTexture(_textureManager.get(Textures::ID::Open));
+	_tools[14]->setCallBack([this]() {
 		std::filesystem::path path(std::filesystem::current_path());
 		path /= "Input";
 		for (auto& i : std::filesystem::directory_iterator(path)) {
@@ -129,16 +191,82 @@ void Paint::initTools() {
 		}
 		});
 
-	_tools[10]->setTexture(_textureManager.get(Textures::ID::Fill));
-	_tools[10]->setCallBack([this]() {
-		_canvas.setFill(!_canvas.getFill());
-		});
 
-	_tools[11]->setTexture(_textureManager.get(Textures::ID::Clear));
-	_tools[11]->setCallBack([this]() {
+	_tools[15]->setTexture(_textureManager.get(Textures::ID::Clear));
+	_tools[15]->setCallBack([this]() {
 		_canvas.deleteAll();
 		});
 
+	// thickness
+	for (int i = 0; i < 5; ++i) {
+		std::unique_ptr<GUI::SpriteButton> temp(new GUI::SpriteButton);
+		temp->setPosition(15.f, 585.f + 40*i);
+		temp->setSize({ 70.f, 30.f });
+		temp->setOutlineThickness(1);
+		temp->setOutlineColor(sf::Color::Black);
+		_tools.push_back(std::move(temp));
+	}
+
+	_tools[16]->setOutlineThickness(3);
+
+	_tools[16]->setTexture(_textureManager.get(Textures::ID::Thick_1px));
+	_tools[16]->setCallBack([this]() {
+		_canvas.setThickness(1.f);
+		for (size_t i = 14; i <= 20; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[16]->setOutlineThickness(3);
+		});
+
+	_tools[17]->setTexture(_textureManager.get(Textures::ID::Thick_3px));
+	_tools[17]->setCallBack([this]() {
+		_canvas.setThickness(3.f);
+		for (size_t i = 14; i <= 20; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[17]->setOutlineThickness(3);
+		});
+
+	_tools[18]->setTexture(_textureManager.get(Textures::ID::Thick_5px));
+	_tools[18]->setCallBack([this]() {
+		_canvas.setThickness(5.f);
+		for (size_t i = 14; i <= 20; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[18]->setOutlineThickness(3);
+		});
+
+	_tools[19]->setTexture(_textureManager.get(Textures::ID::Thick_7px));
+	_tools[19]->setCallBack([this]() {
+		_canvas.setThickness(7.f);
+		for (size_t i = 14; i <= 20; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[19]->setOutlineThickness(3);
+		});
+
+	_tools[20]->setTexture(_textureManager.get(Textures::ID::Thick_9px));
+	_tools[20]->setCallBack([this]() {
+		_canvas.setThickness(9.f);
+		for (size_t i = 14; i <= 20; ++i) {
+			_tools[i]->setOutlineThickness(1);
+		}
+		_tools[20]->setOutlineThickness(3);
+		});
+}
+
+void Paint::initZoom() {
+	_zoom.reset({ 105, 160, 1093, 638 });
+	_zoom.setViewport({ 105.f / 1200.f, 160 / 800.f,  1093 / 1200.f, 638 / 800.f });
+	_viewSize = _zoom.getSize();
+}
+
+void Paint::initCanvasShape() {
+	_canvasShape.setPosition({ 105, 160 });
+	_canvasShape.setSize({ 1093, 638 });
+	_canvasShape.setFillColor(sf::Color::White);
+	_canvasShape.setOutlineColor(sf::Color::Black);
+	_canvasShape.setOutlineThickness(2.f);
 }
 
 void Paint::initColors() {
@@ -197,7 +325,7 @@ void Paint::render() {
 
 	_window.setView(_window.getDefaultView());
 
-	_window.draw(_shape);
+	_window.draw(_canvasShape);
 
 	for (auto& i : _colors) {
 		_window.draw(*i);
@@ -269,4 +397,9 @@ void Paint::processEvents() {
 			}
 		}
 	}
+}
+
+void Paint::setIcon() {
+	_icon.loadFromFile("Assets/pencil.png");
+	_window.setIcon(64, 64, _icon.getPixelsPtr());
 }

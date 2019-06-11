@@ -11,6 +11,10 @@ public:
 
 	void setBegin(const sf::Vector2f& begin);
 	void setEnd(const sf::Vector2f& end);
+
+	sf::Vector2f getEnd() const;
+	sf::Vector2f getBegin() const;
+
 	void setThickness(const float thickness);
 	void setColor(const sf::Color& color);
 

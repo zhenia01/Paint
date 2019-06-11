@@ -16,6 +16,8 @@ private:
 	void render();
 	void processEvents();
 
+	void setIcon();
+
 private:
 	sf::RenderWindow _window;
 
@@ -34,8 +36,10 @@ private:
 	sf::View _zoom;
 	sf::Vector2f _viewSize;
 	float _zoomFactor;
+	void initZoom();
 
-	sf::RectangleShape _shape;
+	sf::RectangleShape _canvasShape;
+	void initCanvasShape();
 
 	sf::Image _icon;
 };

@@ -37,6 +37,14 @@ void ThickLine::setEnd(const sf::Vector2f& end) {
 	updateLine();
 }
 
+sf::Vector2f ThickLine::getEnd() const {
+	return _end;
+}
+
+sf::Vector2f ThickLine::getBegin() const {
+	return _begin;
+}
+
 void ThickLine::setThickness(const float thickness) {
 	_thickness = thickness;
 

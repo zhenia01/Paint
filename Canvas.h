@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <functional>
 
-class Canvas : public sf::Drawable, public sf::Transformable, public sf::NonCopyable {
+class Canvas : public sf::Drawable, public sf::NonCopyable {
 
 public:
 	Canvas(const sf::Vector2f& pos, const sf::Vector2f& size);
@@ -23,6 +23,7 @@ public:
 
 	void loadImage(const std::string& path);
 	void deleteAll();
+	void save() const;
 
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -32,7 +33,6 @@ private:
 	sf::Vector2f _position;
 	sf::Vector2f _size;
 
-	sf::Vector2f _lastPoint;
 	float _thickness;
 	sf::Color _color;
 	bool _fill;

@@ -17,6 +17,7 @@ namespace GUI {
 
 		void setOutlineColor(const sf::Color& color);
 		void setOutlineThickness(float thickness);
+		float getOutlineThickness() const;
 
 		virtual void onClick() override;
 

@@ -20,8 +20,11 @@ namespace Tool {
 		Line,
 		Erase,
 		Pencil,
-
-		Save
+		Poly,
+		Save,
+		Square,
+		Poly_5,
+		Poly_6
 	};
 
 	class BaseTool {

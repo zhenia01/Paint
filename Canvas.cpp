@@ -15,13 +15,9 @@ bool Canvas::handleEvent(const sf::Event& event,const sf::RenderWindow& window) 
 			_tools[_mode].onPress(event, window);
 		}
 	} else if (event.type == event.MouseButtonReleased) {
-		if (_mode == Tool::Mode::Save) {
-			_tools[_mode].onPress(event, window);
-			_mode = Tool::Mode::Pencil;
-		} else if (sf::FloatRect(_position.x, _position.y, _size.x, _size.y).contains({ static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y) })) {
+		if (sf::FloatRect(_position.x, _position.y, _size.x, _size.y).contains({ static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y) })) {
 			_tools[_mode].onRelease(event, window);
 		}
-
 	} else if (event.type == event.MouseMoved) {
 		if (sf::FloatRect(_position.x, _position.y, _size.x, _size.y).contains({ static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y) })) {
 			if (_tools[_mode].status == Tool::Status::Dragging) {
@@ -33,8 +29,9 @@ bool Canvas::handleEvent(const sf::Event& event,const sf::RenderWindow& window) 
 			if (_tools[_mode].status == Tool::Status::Dragging) {
 				_tools[_mode].onRelease(event, window);
 			}
-			_tools[_mode].onNothing();
 		}
+	} else if (_mode == Tool::Mode::Poly &&(event.type == event.KeyPressed && event.key.code == sf::Keyboard::Enter)) {
+		_tools[Tool::Mode::Poly].onNothing();
 	}
 
 	return true;
@@ -81,9 +78,10 @@ void Canvas::deleteAll() {
 	_tools.deleteAll();
 }
 
+void Canvas::save() const {
+	_tools[Tool::Mode::Save].onPress(sf::Event(), sf::RenderWindow());
+}
+
 void Canvas::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	/*if (_sprite.getPosition().x > 0.1f) {
-		target.draw(_sprite, states);
-	}*/
 	_tools.draw(target, states);
 }

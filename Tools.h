@@ -6,8 +6,12 @@
 #include "Circle.h"
 #include "Rectangle.h"
 #include "Erase.h"
-#include "Save.h"
+#include "Poly.h"
 #include "Triangle.h"
+#include "Save.h"
+#include "Poly_5.h"
+#include "Poly_6.h"
+#include "Square.h"
 
 #include <memory>
 
@@ -32,9 +36,12 @@ namespace Tool {
 		Circle _circle;
 		Rectangle _rect;
 		Erase _erase;
-		Save _save;
 		Triangle _triangle;
-
+		Poly _poly;
+		Poly_5 _poly_5;
+		Poly_6 _poly_6;
+		Save _save;
+		Square _square;
 	};
 
 }
